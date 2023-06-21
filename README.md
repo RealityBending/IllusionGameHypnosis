@@ -1,4 +1,5 @@
 # IllusionGameHypnosis
 
 
-This repo contqins something.
+This repo contains something.
+
