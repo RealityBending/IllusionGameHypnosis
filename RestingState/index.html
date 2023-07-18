@@ -56,7 +56,7 @@
         extensions: extensions,
         // override_safe_mode: true,
         on_finish: function () {
-            if (raw_data == false) {
+            if (raw_data == true) {
                 jsPsych.data.allData.trials = [clean_data()]
             }
             // jsPsych.data.displayData("json")
@@ -83,41 +83,6 @@
             type: jsPsychInitializeCamera,
         })
     }
-
-    // Retrieve and save browser info
-    var browser_check = {
-        type: jsPsychBrowserCheck,
-        data: {
-            screen: "browser_info",
-        },
-        on_finish: function () {
-            data = jsPsych.data
-                .get()
-                .filter({ screen: "browser_info" })
-                .values()[0]
-            jsPsych.data.addProperties({
-                ["screen_height"]: data["height"],
-                ["screen_width"]: data["width"],
-            })
-            for (var key in data) {
-                if (
-                    [
-                        "vsync_rate",
-                        "os",
-                        "mobile",
-                        "browser",
-                        "browser_version",
-                    ].includes(key)
-                ) {
-                    jsPsych.data.addProperties({
-                        [key]: data[key],
-                    })
-                }
-            }
-            jsPsych.data.addProperties()
-        },
-    }
-    timeline.push(browser_check)
 
     /* ----------------- Session Info ----------------- */
 
@@ -157,6 +122,42 @@
     })
 
     /* ----------------- Experiment Variables ----------------- */
+// Mini IPIP6 questionnaire
+var scale = [ "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",]
+            var questions = []
+            for (const [index, element] of ipip6_items.entries()) {
+                questions.push({
+                    prompt: "<b>" + element + "</b>",
+                    name: ipip6_dimensions[index],
+                    ticks: scale,
+                    required: questions_required,
+                })
+            }
+
+            var ipip6 = {
+                type: jsPsychMultipleSlider,
+                questions: questions,
+                randomize_question_order: true,
+                preamble:
+                    "<h2>ipip6</h2>",
+                require_movement: questions_required,
+                slider_width: null,
+                min: 1,
+                max: 7,
+                slider_start: 4,
+                step: 10,
+                ticks: scale,
+                data: {
+                    screen: "ipip6_dimensions",
+                },
+            }
+            timeline.push(ipip6)
 
     // Instructions
     var instructions = {
@@ -234,79 +235,70 @@
     }
     timeline.push(audio_trigger)
 
-    // Exit fullscreen mode
-    timeline.push({
-        type: jsPsychFullscreen,
-        fullscreen_mode: false,
-    })
+   
 
-    // Debriefing Questions
+
+
+
+  // PID-5-BF questionnaire
     var scale = ["Completely Disagree", "Completely Agree"]
     var questions = []
-    for (const [index, element] of items.entries()) {
+    for (const [index, element] of PID5_items.entries()) {
         questions.push({
             prompt: "<b>" + element + "</b>",
-            name: dimensions[index],
+            name: PID5_dimensions[index],
             ticks: scale,
             required: questions_required,
         })
     }
     questions = jsPsych.randomization.shuffle(questions)
 
-    // Add validation check items
-    for (const [index, element] of check_items.entries()) {
-        questions.push({
-            prompt: "<b>" + element + "</b>",
-            name: "Check_" + (index + 1),
-            ticks: scale,
-            required: questions_required,
-        })
-    }
 
-    var questionnaire = {
+    var PID5 = {
         type: jsPsychMultipleSlider, // this is a custom plugin in utils
         questions: questions,
-        randomize_question_order: false,
+        randomize_question_order: true,
         preamble:
-            "<p>We are interested in the potential feelings and thoughts you may have experienced during the resting period.</p>" +
-            "<p>Please indicate the extent to which you agree with each statement.</p><br /><br/> ",
+            "<p>PID5</p>",
         require_movement: questions_required,
         slider_width: null,
         min: 0,
         max: 1,
         slider_start: 0.5,
         data: {
-            screen: "questionnaire",
+            screen: "PID5",
         },
     }
-    timeline.push(questionnaire)
+    timeline.push(PID5)
 
+     
+
+    // Debriefing and exit fullscreen
+    timeline.push({
+        type: jsPsychHtmlButtonResponse,
+        stimulus: "You've reached the end of the task, thank you!",
+        choices: ["Exit Fullscreen"],
+        on_finish: function () {
+            document.exitFullscreen()
+        },
+    })
+
+    // Exit fullscreen mode
+     timeline.push({
+        type: jsPsychFullscreen,
+        fullscreen_mode: false,
+    })
+    
     /* ----------------- Run the timeline ----------------- */
     jsPsych.run(timeline)
 
     function clean_data() {
-        var info = jsPsych.data
-            .get()
-            .filter({ screen: "participant_info" })
-            .values()[0]
-        var items = jsPsych.data
-            .get()
-            .filter({ screen: "questionnaire" })
-            .values()[0]
-        items["response"] = JSON.parse(items["response"])
-        items["question_order"] = JSON.parse(items["question_order"])
-        items["duration"] = jsPsych.data
-            .get()
-            .filter({ screen: "resting" })
-            .values()[0]["duration"]
         if (record_webcam == true) {
             items["video"] = jsPsych.data
                 .get()
                 .filter({ screen: "resting" })
                 .values()[0]["record_video_data"]
         }
-        var out = Object.assign({}, info, items)
-        return out
     }
 </script>
 
