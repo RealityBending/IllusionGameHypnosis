@@ -6,6 +6,7 @@
     <script src="utils/jspsych/plugin-html-keyboard-response.js"></script>
     <script src="utils/jspsych/plugin-html-button-response.js"></script>
     <script src="utils/jspsych/plugin-fullscreen.js"></script>
+    <script src="utils/jspsych/plugin-audio-button-response.js"></script>
     <script src="utils/jspsych/plugin-survey-text.js"></script>
     <script src="utils/jspsych/plugin-preload.js"></script>
     <script src="utils/jspsych/plugin-image-keyboard-response.js"></script>
@@ -29,6 +30,7 @@
     <link href="utils/jspsych/jspsych.css" rel="stylesheet" type="text/css" />
     <!--<script type="text/javascript" src="lib/vendors/jquery-2.2.0.min.js"></script>-->
     <!--<script type="text/javascript" src="lib/jspsych-7-pavlovia-2022.1.1.js"></script>-->
+
 
     <style>
         /* set canvas to be full screen */
@@ -129,6 +131,10 @@
         audio: beep,
     })
 
+    initJsPsych({
+        override_safe_mode: true
+    });
+
     /* ----------------- Experiment  ----------------- */
 
     // Subject Information
@@ -158,78 +164,43 @@
 
     timeline.push(subject_id)
 
-    // Preload Instructions Stimuli
-    timeline.push({
-        type: jsPsychPreload,
-        images: [
-            "materials/instructions/Ebbinghaus_Demo.png",
-            "materials/instructions/MullerLyer_Demo.png",
-            "materials/instructions/VerticalHorizontal_Demo.png",
-        ],
-    })
 
-    /* ============================================================== */
-    /*  --------------------PRACTICE BLOCKS---------------------------*/
-    /* ============================================================== */
+    // Introduction to Mindfulness audio
+    var mindfullness_intro = {
+        type: jsPsychHtmlButtonResponse,
+        choices: ["Start audio"],
+        stimulus:
+            "<p>Before continuing with the final part of the experiment, there will be a short hypnosis session</p>" +
+            "<p>After pressing the button to start the audio clip please close your eyes and focus on the voice</p><br>" +
+            "<p>Hypnsosis works best when you allow yourself to be true to the experience, there will be nothing in the hypnosis that could remotley cause harm or embarssement to yourself</p><br>" +
+            "<p>After pressing the button below please close your eyes and allow yourself to relax into the experience, it has been found the mind can overcome many obstacles subconsciouly when one allows hypnosis to work to its fullest extent</p><br>" +
+            "<p>After the audio clip there will  be another set of trials, however there will be no practice rounds so your speed and accuracy will be measured from the start" +
+            "<p>Enjoy the mindfullness session!</p><br>",
+        data: { screen: "Mindfulness Session" },
+    }
 
-    // Illusion Instructions
+    timeline.push(mindfullness_intro)
+
+    // Mindfullness audio
+    var mindfullness_audio = {
+        type: jsPsychAudioButtonResponse,
+        stimulus: beep,
+        choices: ["Continue"],
+    }
+    timeline.push(mindfullness_audio)
+
+    //Illusion Task Instructions
     var illusion_instructions = {
         type: jsPsychHtmlButtonResponse,
-        choices: ["Start the practice!"],
+        choices: ["Continue to Illusion Task"],
         stimulus:
-            "<p><b>Illusion Game</b></p>" +
-            "<p>In this game of speed and reflex, you will need to make <b>visual judgments</b> (for instance, which circle is the biggest, or which line is the longest), as fast and as correctly as possible, while <b>resisting different visual illusions</b>.</p>" +
-            "<p>We are going to start with some examples of all the illusions you will encounter in the game.</p>",
-        data: { screen: "illusion_instructions" },
+            "<p>Now that you have completed the practice rounds and mindfullness file, you will now complete the final part of the experiment</p>" +
+            "<p>There will be 3 parts to this experiment, each part will be a different illusion</p><br>" +
+            "<p>Try to keep yourself in the relaxed state you have just been brought into, taking time to return to your state of mindfullness when needed</p><br>",
+        data: { screen: "Illusion Instructions" },
     }
+    timeline.push(illusion_instructions)
 
-    /* ----------------------Ebbinghaus Practice----------------------------*/
-    var ebbinghaus_practice = make_trial(
-        (stimuli = stimuli_training),
-        (instructions = "<p><b>Practice</b></p>" + ebbinghaus_instructions),
-        (illusion_name = "Ebbinghaus"),
-        (type = 'leftright'))
-
-    /* ----------------------Muller-Lyer Practice----------------------------*/
-    var mullerlyer_practice = make_trial(
-        (stimuli = stimuli_training),
-        (instructions = "<p><b>Practice</b></p>" + mullerlyer_instructions),
-        (illusion_name = "MullerLyer"),
-        (type = 'updown'))
-
-
-    /* ----------------------Vertical Horizaontal Practice----------------------------*/
-    var verticalhorizontal_practice = make_trial(
-        (stimuli = stimuli_training),
-        (instructions = "<p><b>Practice</b></p>" + verticalhorizontal_instructions), (illusion_name = "VerticalHorizontal"),
-        (type = 'leftright'))
-
-    // Debrief practice block
-    var end_practice = {
-        type: jsPsychHtmlButtonResponse,
-        choices: ["Let's Play!"],
-        stimulus: "<p><b>TRAINING COMPLETED</b></p>" +
-            "<p>In the next phase, there will be more trials, and some might be harder too.<br> Moreover, after each illusion block, a <b>score</b> will be calculated based on speed (time you took to answer) and accuracy (number of errors).</p>" +
-            "<p>Try to keep up a high score!</p><br>" +
-            "<p>Note that it can be <i>really</i> challenging at times, so you will need to rely on your <b>intuition</b> and gut feeling to answer as fast as you can without making errors.</p>" +
-            "<p>Each illusion block will be repeated two times (so that you have the opportunity to improve your score), but the order of the blocks is random.</p>" +
-            "<p>Remember, your goal is to be as <b>fast</b> and <b>accurate</b> as possible. Good luck!</p><br>",
-        data: { screen: "practice_debrief" },
-        on_finish: function () {
-            block_number = 1   // reset block number for illusion trials
-        }
-    }
-
-    // Create Illusion Task Practice Block
-    var illusion_practice_block = {
-        timeline: [illusion_instructions,
-            { timeline: ebbinghaus_practice },
-            { timeline: mullerlyer_practice },
-            { timeline: verticalhorizontal_practice },
-            end_practice],
-    };
-
-    timeline.push(illusion_practice_block)
 
     /* ============================================================== */
     /*  -----------------------TASK BLOCKS---------------------------*/

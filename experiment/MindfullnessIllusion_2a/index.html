@@ -184,8 +184,21 @@
     var mindfullness_audio = {
         type: jsPsychAudioButtonResponse,
         stimulus: beep,
+        choices: ["Continue"],
     }
     timeline.push(mindfullness_audio)
+
+    //Illusion Task Instructions
+    var illusion_instructions = {
+        type: jsPsychHtmlButtonResponse,
+        choices: ["Continue to Illusion Task"],
+        stimulus:
+            "<p>Now that you have completed the practice rounds and mindfullness file, you will now complete the final part of the experiment</p>" +
+            "<p>There will be 3 parts to this experiment, each part will be a different illusion</p><br>" +
+            "<p>Try to keep yourself in the relaxed state you have just been brought into, taking time to return to your state of mindfullness when needed</p><br>",
+        data: { screen: "Illusion Instructions" },
+    }
+    timeline.push(illusion_instructions)
 
 
     /* ============================================================== */
