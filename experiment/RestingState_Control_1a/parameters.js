@@ -7,14 +7,14 @@
 // experiment version
 version = "1.0"
 // Resting state duration in min
-duration = 2
+duration = 8
 // [x, y, width, height] in pixels. Set to [0, 0, 0, 0] to disable.
 marker_position = [0, 0, 200, 200]
 // Are all the questions from the debriefing required?
 questions_required = false
 // Record webcam?
 record_webcam = false
-// Display raw data
+// Display raw data at the end
 raw_data = false
 
 // Mini IPIP6 questionnaire
@@ -71,59 +71,123 @@ var ipip6_dimensions = [
     "HonestyHumility_24_R",
 ]
 
-// PID-5-BF questionnaire
-var PID5_items = [
-    "People would describe me as reckless",
-    "I feel like I act totally on impulse",
-    "Even though I know better, I cant stop making rash decisions",
-    "I often feel like nothing I do really matters",
-    "Others see me as irresponsible",
-    "I am not good at planning ahead",
-    "My thoughts often dont make sense to others",
-    "I worry about almost everything",
-    "I get emotional easily, often for very little reason",
-    "I fear being alone in life more than anything else",
-    "I get stuck on one way of doing things, even when it's clear it wont work",
-    "I have seen things that werent really there",
-    "I steer clear of romantic relationships",
-    "I am not interested in making friends",
-    "I get irritated easily by all kinds of things",
-    "I dont like to get too close to people",
-    "It isnt a big deal if I hurt other peoples feelings",
-    "I rarely get enthusiastic about anything",
-    "I crave attention",
-    "I often have to deal with people who are less important than me",
-    "I often have thoughts that make sense to me but that other people say are strange",
-    "I use people to get what I want",
-    "I often zone out and then suddenly come back to reality",
-    "Things around me often feel unreal, or more real than usual",
-    "It is easy for me to take advantage of others",
-]
-var PID5_dimensions = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "11",
-    "12",
-    "13",
-    "14",
-    "15",
-    "16",
-    "17",
-    "18",
-    "19",
-    "20",
-    "21",
-    "22",
-    "23",
-    "24",
-    "25",
-]
+var RS_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus:
+        "<p><b>Instructions</b></p>" +
+        // Don't give exact time so that participants don't count
+        "<p>A rest period is about to start.</p>" +
+        "<p>Simply <b>relax</b> and remain seated quietly with your eyes closed. Please try <b>not to fall asleep</b>.</p> " +
+        "<p>Once the resting period is over, you will hear a beep. You can then open your eyes and proceed.</p>" +
+        "<p>Once you are ready, close your eyes. The rest period will shortly begin.</p>",
+    choices: ["Continue"],
+}
 
+if (record_webcam) {
+    var extensions = [{ type: jsPsychExtensionRecordVideo }]
+} else {
+    var extensions = []
+}
+
+// Functions ===================================================================
+function create_marker(marker_position, color = "black") {
+    const html = `<div id="marker" style="position: absolute; background-color: ${color};\
+left:${marker_position[0]}px; top:${marker_position[1]}px; \
+width:${marker_position[2]}px; height:${marker_position[3]}px";></div>`
+    document.querySelector("body").insertAdjacentHTML("beforeend", html)
+}
+
+// Tasks ======================================================================
+// Create blank grey screen just before rest period
+var RS_buffer = {
+    type: jsPsychHtmlKeyboardResponse,
+    on_start: function () {
+        document.body.style.backgroundColor = "#808080"
+        document.body.style.cursor = "none"
+        create_marker(marker_position, (color = "white"))
+    },
+    on_finish: function () {
+        document.querySelector("#marker").remove()
+    },
+    stimulus: "",
+    choices: ["s"],
+    trial_duration: 1000, // 1 second
+    css_classes: ["fixation"],
+}
+
+// Create blank grey screen for resting state
+var RS_task = {
+    type: jsPsychHtmlKeyboardResponse,
+    extensions: extensions,
+    on_load: function () {
+        create_marker(marker_position)
+    },
+    stimulus: "<p style='font-size:150px;'>+</p>",
+    choices: ["s"],
+    trial_duration: duration * 60 * 1000,
+    css_classes: ["fixation"],
+    data: {
+        screen: "resting",
+        time_start: function () {
+            return performance.now()
+        },
+    },
+    on_finish: function (data) {
+        document.querySelector("#marker").remove()
+        data.duration = (performance.now() - data.time_start) / 1000 / 60
+    },
+}
+
+// Play beep
+var RS_beep = {
+    type: jsPsychAudioButtonResponse,
+    on_start: function () {
+        document.body.style.backgroundColor = "#FFFFFF"
+        document.body.style.cursor = "auto"
+    },
+    stimulus: ["utils/beep.mp3"],
+    prompt: "<p>It's over! Please press continue.</p>",
+    choices: ["Continue"],
+}
+// Questionnaire ========================================================================
+
+// Mini IPIP6 questionnaire
+var scale = ["1",
+"2",
+"3",
+"4",
+"5",
+"6",
+"7",]
+var questions = []
+for (const [index, element] of ipip6_items.entries()) {
+questions.push({
+    prompt: "<b>" + element + "</b>",
+    name: ipip6_dimensions[index],
+    ticks: scale,
+    required: questions_required,
+})
+}
+
+// Randomize order (comment this out to deactivate the randomization)
+// questions = questions.sort(() => Math.random() - 0.5)
+
+
+// Make questionnaire task
+var ipip6_questionaire = {
+    type: jsPsychMultipleSlider,
+    questions: questions,
+    randomize_question_order: true,
+    preamble:
+        "<h2>IPIP6</h2>",
+    require_movement: questions_required,
+    slider_width: null,
+    min: 1,
+    max: 7,
+    slider_start: 4,
+    step: 10,
+    ticks: scale,
+    data: {
+        screen: "IPIP6_dimensions",
+    },
+}
