@@ -21,7 +21,7 @@
         <script src="utils/jspsych/plugin-initialize-camera.js"></script>
 
         <!-- Load parameters here (always below the loading of the JsPsych) -->
-        <script src="RestingState_Control.js"></script>
+        <script src="RestingState.js"></script>
 
         <link
             href="utils/jspsych/jspsych.css"
@@ -203,7 +203,7 @@
         timeline.push({
             type: jsPsychPreload,
             auto_preload: true,
-            audio: beep,
+            audio: RS_beep,
         })
 
         /* ----------------- Experiment Variables ----------------- */
@@ -217,7 +217,7 @@
         // Play beep
         timeline.push(RS_beep)
         // Add debriefing questionnaire
-        timeline.push(ipip6_questionnaire)
+        timeline.push(ipip6_questionaire)
         // =================================================================
 
         // Exit fullscreen mode

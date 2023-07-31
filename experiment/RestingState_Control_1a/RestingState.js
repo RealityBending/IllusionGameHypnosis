@@ -185,7 +185,7 @@ var ipip6_questionaire = {
     min: 1,
     max: 7,
     slider_start: 4,
-    step: 10,
+    step: 1,
     ticks: scale,
     data: {
         screen: "IPIP6_dimensions",
