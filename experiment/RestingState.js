@@ -17,7 +17,7 @@ record_webcam = false
 // Display raw data at the end
 raw_data = false
 // Debriefing questionnaire
-var items = [
+var rs_items = [
     "I had busy thoughts",
     "I had rapidly switching thoughts",
     "I had difficulty holding onto my thoughts",
@@ -49,7 +49,7 @@ var items = [
     // "I had silent conversations",
     // "I imagined talking to myself",
 ]
-var dimensions = [
+var rs_dimensions = [
     "DoM_1",
     "DoM_2",
     "DoM_3",
@@ -161,28 +161,17 @@ var RS_beep = {
 }
 // Debriefing Questionnaire ========================================================================
 
-var scale = ["Completely Disagree", "Completely Agree"]
-
-// Create list of formatted questions into the list
 var questions = []
-for (const [index, element] of items.entries()) {
+for (const [index, element] of rs_items.entries()) {
     questions.push({
         prompt: "<b>" + element + "</b>",
-        name: dimensions[index],
-        ticks: scale,
-        required: questions_required,
-    })
-}
-// Randomize order (comment this out to deactivate the randomization)
-questions = questions.sort(() => Math.random() - 0.5)
-
-// Do the same for validation items to add them at the end (not randomized)
-for (const [index, element] of check_items.entries()) {
-    questions.push({
-        prompt: "<b>" + element + "</b>",
-        name: "Check_" + (index + 1),
-        ticks: scale,
-        required: questions_required,
+        name: rs_dimensions[index],
+        ticks: ["Inaccurate", "Accurate"],
+        required: false,
+        min: 0,
+        max: 1,
+        step: 0.01,
+        slider_start: 0.5,
     })
 }
 
@@ -201,6 +190,6 @@ var RS_questionnaire = {
     max: 1,
     slider_start: 0.5,
     data: {
-        screen: "questionnaire",
+        screen: "rs_questionnaire",
     },
 }

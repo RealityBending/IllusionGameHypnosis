@@ -76,7 +76,7 @@ var ipip6_questionaire = {
     randomize_question_order: false,
     preamble:
         "<p><b>About your personality...</b></p><p>Please answer the following questions based on how accurately each statement describes you in general.</p>",
-    require_movement: true,
+    require_movement: false,
     slider_width: 600,
     data: {
         screen: "IPIP6",
