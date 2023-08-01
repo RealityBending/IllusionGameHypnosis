@@ -16,59 +16,69 @@ questions_required = false
 record_webcam = false
 // Display raw data at the end
 raw_data = false
-
-// Mini IPIP6 questionnaire
-var ipip6_items = [
-    "I am the life of the party",
-    "I sympahtize with others' feelings",
-    "I get chores done right away",
-    "I have frequent mood swings",
-    "I have a vivid imagination",
-    "I feel entitled to more of everything",
-    "I dont talk a lot",
-    "I am not interested in other people's problems",
-    "I have difficulty understanding abstract ideas",
-    "I like order",
-    "I make a mess of things",
-    "I deserve more things in life",
-    "I do not have a good imagination",
-    "I feel others' emotions",
-    "I am relaxed most of the time",
-    "I get upset easily",
-    "I seldom feel blue",
-    "I would like to be seen driving around in a really expensive car",
-    "I keep in the background",
-    "I am not really interested in others",
-    "I am not interested in abstract ideas",
-    "I often forget to put things back in their proper place",
-    "I talk to a lot of different people at parties",
-    "I would get a lot of pleasure from owning expensive luxury goods",
+// Debriefing questionnaire
+var rs_items = [
+    "I had busy thoughts",
+    "I had rapidly switching thoughts",
+    "I had difficulty holding onto my thoughts",
+    "I thought about others",
+    "I thought about people I like",
+    "I placed myself in other people's shoes",
+    "I thought about my feelings",
+    "I thought about my behaviour",
+    "I thought about myself",
+    "I thought about things I need to do",
+    "I thought about solving problems",
+    "I thought about the future",
+    "I felt sleepy",
+    "I felt tired",
+    "I had difficulty staying awake",
+    "I felt comfortable",
+    "I felt happy",
+    "I felt relaxed",
+    "I was conscious of my body",
+    "I thought about my heartbeat",
+    "I thought about my breathing",
+    // "I felt ill",
+    // "I thought about my health",
+    // "I felt pain",
+    // "I thought in images",
+    // "I pictured events",
+    // "I pictured places",
+    // "I thought in words",
+    // "I had silent conversations",
+    // "I imagined talking to myself",
 ]
-var ipip6_dimensions = [
-    "Extraversion_1",
-    "Agreeableness_2",
-    "Conscientiousness_3",
-    "Neuroticism_4",
-    "Openness_5",
-    "HonestyHumility_6_R",
-    "Extraversion_7_R",
-    "Agreeableness_8_R",
-    "Openness_9_R",
-    "Conscientiousness_10",
-    "Conscientiousness_11_R",
-    "HonestyHumility_12_R",
-    "Openness_13_R",
-    "Agreeableness_14",
-    "Neuroticism_15_R",
-    "Neuroticism_16",
-    "Neuroticism_17_R",
-    "HonestyHumility_18_R",
-    "Extraversion_19_R",
-    "Agreeableness_20_R",
-    "Openness_21_R",
-    "Conscientiousness_22_R",
-    "Extraversion_23",
-    "HonestyHumility_24_R",
+var rs_dimensions = [
+    "DoM_1",
+    "DoM_2",
+    "DoM_3",
+    "ToM_1",
+    "ToM_2",
+    "ToM_3",
+    "Self_1",
+    "Self_2",
+    "Self_3",
+    "Plan_1",
+    "Plan_2",
+    "Plan_3",
+    "Sleep_1",
+    "Sleep_2",
+    "Sleep_3",
+    "Comfort_1",
+    "Comfort_2",
+    "Comfort_3",
+    "SomA_1",
+    "SomA_2",
+    "SomA_3",
+    // "Health_1", "Health_2", "Health_3",
+    // "Visual_1", "Visual_2", "Visual_3",
+    // "Verbal_1", "Verbal_2", "Verbal_3",
+]
+
+var check_items = [
+    "I had my eyes closed",
+    "I was able to rate the statements above",
 ]
 
 var RS_instructions = {
@@ -76,7 +86,7 @@ var RS_instructions = {
     stimulus:
         "<p><b>Instructions</b></p>" +
         // Don't give exact time so that participants don't count
-        "<p>A rest period is about to start.</p>" +
+        "<p>A rest period of approximately 10 minutes is about to start.</p>" +
         "<p>Simply <b>relax</b> and remain seated quietly with your eyes closed. Please try <b>not to fall asleep</b>.</p> " +
         "<p>Once the resting period is over, you will hear a beep. You can then open your eyes and proceed.</p>" +
         "<p>Once you are ready, close your eyes. The rest period will shortly begin.</p>",
@@ -149,45 +159,37 @@ var RS_beep = {
     prompt: "<p>It's over! Please press continue.</p>",
     choices: ["Continue"],
 }
-// Questionnaire ========================================================================
+// Debriefing Questionnaire ========================================================================
 
-// Mini IPIP6 questionnaire
-var scale = ["1",
-"2",
-"3",
-"4",
-"5",
-"6",
-"7",]
 var questions = []
-for (const [index, element] of ipip6_items.entries()) {
-questions.push({
-    prompt: "<b>" + element + "</b>",
-    name: ipip6_dimensions[index],
-    ticks: scale,
-    required: questions_required,
-})
+for (const [index, element] of rs_items.entries()) {
+    questions.push({
+        prompt: "<b>" + element + "</b>",
+        name: rs_dimensions[index],
+        ticks: ["Inaccurate", "Accurate"],
+        required: false,
+        min: 0,
+        max: 1,
+        step: 0.01,
+        slider_start: 0.5,
+    })
 }
 
-// Randomize order (comment this out to deactivate the randomization)
-// questions = questions.sort(() => Math.random() - 0.5)
-
-
 // Make questionnaire task
-var ipip6_questionaire = {
-    type: jsPsychMultipleSlider,
+var RS_questionnaire = {
+    type: jsPsychMultipleSlider, // this is a custom plugin in utils
     questions: questions,
-    randomize_question_order: true,
+    randomize_question_order: false,
     preamble:
-        "<h2>IPIP6</h2>",
+        "<p><b>A few questions...</b></p>" +
+        "<p>We are interested in the potential feelings and thoughts you may have experienced during the resting period.</p>" +
+        "<p>Please indicate the extent to which you agree with each statement.</p><br/> ",
     require_movement: questions_required,
     slider_width: null,
-    min: 1,
-    max: 7,
-    slider_start: 4,
-    step: 1,
-    ticks: scale,
+    min: 0,
+    max: 1,
+    slider_start: 0.5,
     data: {
-        screen: "IPIP6_dimensions",
+        screen: "rs_questionnaire",
     },
 }
