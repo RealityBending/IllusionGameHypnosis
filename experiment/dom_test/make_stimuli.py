@@ -71,7 +71,7 @@ def generate_images(
                 tar = "perceptual_"
             else:
                 tar = ""
-            path = f"{name}_{tar}{np.round(strength, 5):<07}_{np.round(difference, 5):<07}.png"
+            path = f"{name}_{tar}{float(np.round(strength, 5)):<07}_{float(np.round(difference, 5)):<07}.png"
             img.save("stimuli/" + path)
 
             # Compute expected response
@@ -100,8 +100,8 @@ def generate_images(
             data.append(
                 {
                     "Illusion_Type": name,
-                    "Illusion_Strength": f"{strength:<012}",
-                    "Difference": f"{difference:<012}",
+                    "Illusion_Strength": f"{float(strength):<012}",
+                    "Difference": f"{float(difference):<012}",
                     "stimulus": "stimuli/" + path,
                     # "fix_cross": random.choice(fix_cross),
                     "data": {

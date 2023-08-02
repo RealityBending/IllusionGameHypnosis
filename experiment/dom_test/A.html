@@ -146,30 +146,30 @@
         }
         timeline.push(participant_info)
 
-        var demographics = {
-            type: jsPsychSurveyText,
-            questions: [
-                {
-                    prompt: "Please enter your age (in years)",
-                    placeholder: "e.g., '31'",
-                    name: "age",
-                },
-                {
-                    prompt: "Please enter your gender",
-                    placeholder: "e.g., Female",
-                    name: "gender",
-                },
-                {
-                    prompt: "Please enter your ethnicity",
-                    placeholder: "e.g., Caucasian",
-                    name: "ethnicity",
-                },
-            ],
-            data: {
-                screen: "demographics",
-            },
-        }
-        timeline.push(demographics)
+        // var demographics = {
+        //     type: jsPsychSurveyText,
+        //     questions: [
+        //         {
+        //             prompt: "Please enter your age (in years)",
+        //             placeholder: "e.g., '31'",
+        //             name: "age",
+        //         },
+        //         {
+        //             prompt: "Please enter your gender",
+        //             placeholder: "e.g., Female",
+        //             name: "gender",
+        //         },
+        //         {
+        //             prompt: "Please enter your ethnicity",
+        //             placeholder: "e.g., Caucasian",
+        //             name: "ethnicity",
+        //         },
+        //     ],
+        //     data: {
+        //         screen: "demographics",
+        //     },
+        // }
+        // timeline.push(demographics)
 
         /* ----------------- Preloading ----------------- */
         // Preload audio variables
@@ -184,21 +184,21 @@
         /* -------------------- Resting State + Q ----------------------- */
         /* ============================================================== */
 
-        // RS -----------------------------------------------------------------
-        // Instructions
-        timeline.push(RS_instructions)
-        // Create blank grey screen just before rest period
-        timeline.push(RS_buffer)
-        // Create blank grey screen for resting state
-        timeline.push(RS_task)
-        // Play beep
-        timeline.push(RS_beep)
-        // Add debriefing questionnaire
-        timeline.push(RS_questionnaire)
+        // // RS -----------------------------------------------------------------
+        // // Instructions
+        // timeline.push(RS_instructions)
+        // // Create blank grey screen just before rest period
+        // timeline.push(RS_buffer)
+        // // Create blank grey screen for resting state
+        // timeline.push(RS_task)
+        // // Play beep
+        // timeline.push(RS_beep)
+        // // Add debriefing questionnaire
+        // timeline.push(RS_questionnaire)
 
-        // Questionnaires -----------------------------------------------------
-        timeline.push(ipip6_questionaire)
-        timeline.push(pid5_questionaire)
+        // // Questionnaires -----------------------------------------------------
+        // timeline.push(ipip6_questionaire)
+        // timeline.push(pid5_questionaire)
 
         /* ============================================================== */
         /* -------------------- Illusion Practice ----------------------- */
@@ -220,6 +220,8 @@
             timeline: [
                 IG_instructions,
                 { timeline: ebbinghaus_practice },
+                { timeline: mullerlyer_practice },
+                { timeline: verticalhorizontal_practice },
                 IG_practice_end,
             ],
         }

@@ -188,7 +188,7 @@ function IG_create_trial(
             },
             choices: ["arrowup", "arrowdown"],
             data: function () {
-                jsPsych.timelineVariable("data")
+                return jsPsych.timelineVariable("data")
             },
             on_load: function () {
                 create_marker(marker_position)
@@ -371,11 +371,25 @@ function IG_make_trials(stimuli, instructions, illusion_name, type) {
     return timeline
 }
 
-// Practice trials
+// Practice trials ================================================================================
 var ebbinghaus_practice = IG_make_trials(
     (stimuli = stimuli_training),
     (instructions = "<p><b>Practice</b></p>" + ebbinghaus_instructions),
     (illusion_name = "Ebbinghaus"),
+    (type = "leftright")
+)
+
+var mullerlyer_practice = IG_make_trials(
+    (stimuli = stimuli_training),
+    (instructions = "<p><b>Practice</b></p>" + mullerlyer_instructions),
+    (illusion_name = "MullerLyer"),
+    (type = "updown")
+)
+
+var verticalhorizontal_practice = IG_make_trials(
+    (stimuli = stimuli_training),
+    (instructions = "<p><b>Practice</b></p>" + verticalhorizontal_instructions),
+    (illusion_name = "VerticalHorizontal"),
     (type = "leftright")
 )
 
