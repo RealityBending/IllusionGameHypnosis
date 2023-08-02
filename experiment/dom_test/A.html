@@ -146,30 +146,30 @@
         }
         timeline.push(participant_info)
 
-        // var demographics = {
-        //     type: jsPsychSurveyText,
-        //     questions: [
-        //         {
-        //             prompt: "Please enter your age (in years)",
-        //             placeholder: "e.g., '31'",
-        //             name: "age",
-        //         },
-        //         {
-        //             prompt: "Please enter your gender",
-        //             placeholder: "e.g., Female",
-        //             name: "gender",
-        //         },
-        //         {
-        //             prompt: "Please enter your ethnicity",
-        //             placeholder: "e.g., Caucasian",
-        //             name: "ethnicity",
-        //         },
-        //     ],
-        //     data: {
-        //         screen: "demographics",
-        //     },
-        // }
-        // timeline.push(demographics)
+        var demographics = {
+            type: jsPsychSurveyText,
+            questions: [
+                {
+                    prompt: "Please enter your age (in years)",
+                    placeholder: "e.g., '31'",
+                    name: "age",
+                },
+                {
+                    prompt: "Please enter your gender",
+                    placeholder: "e.g., Female",
+                    name: "gender",
+                },
+                {
+                    prompt: "Please enter your ethnicity",
+                    placeholder: "e.g., Caucasian",
+                    name: "ethnicity",
+                },
+            ],
+            data: {
+                screen: "demographics",
+            },
+        }
+        timeline.push(demographics)
 
         /* ----------------- Preloading ----------------- */
         // Preload audio variables
