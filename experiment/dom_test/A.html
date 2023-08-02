@@ -20,10 +20,18 @@
         <script src="utils/jspsych/extension-record-video.js"></script>
         <script src="utils/jspsych/plugin-initialize-camera.js"></script>
         <script src="utils/jspsych/plugin-survey-likert.js"></script>
+        <script src="utils/jspsych/plugin-image-keyboard-response.js"></script>
+        <script src="utils/jspsych/plugin-survey-multi-choice.js"></script>
 
         <!-- Load parameters here (always below the loading of the JsPsych) -->
         <script src="RestingState.js"></script>
         <script src="questionnaires.js"></script>
+
+        <!-- Load stimuli data and IG stuff  -->
+        <script src="stimuli/stimuli_training.js"></script>
+        <script src="stimuli/stimuli_part1.js"></script>
+        <script src="stimuli/stimuli_part2.js"></script>
+        <script src="IllusionGame.js"></script>
 
         <link
             href="utils/jspsych/jspsych.css"
@@ -172,8 +180,11 @@
             audio: beep,
         })
 
-        /* ----------------- Experiment Variables ----------------- */
-        // RS ============================================================
+        /* ============================================================== */
+        /* -------------------- Resting State + Q ----------------------- */
+        /* ============================================================== */
+
+        // RS -----------------------------------------------------------------
         // Instructions
         timeline.push(RS_instructions)
         // Create blank grey screen just before rest period
@@ -184,10 +195,38 @@
         timeline.push(RS_beep)
         // Add debriefing questionnaire
         timeline.push(RS_questionnaire)
-        // Questionnaires =================================================================
+
+        // Questionnaires -----------------------------------------------------
         timeline.push(ipip6_questionaire)
         timeline.push(pid5_questionaire)
 
+        /* ============================================================== */
+        /* -------------------- Illusion Practice ----------------------- */
+        /* ============================================================== */
+
+        // Preload Instructions Stimuli
+        timeline.push({
+            type: jsPsychPreload,
+            images: [
+                "materials/instructions/Ebbinghaus_Demo.png",
+                "materials/instructions/MullerLyer_Demo.png",
+                "materials/instructions/VerticalHorizontal_Demo.png",
+            ],
+        })
+
+        /* ----------------------Ebbinghaus Practice----------------------------*/
+
+        var illusion_practice_block = {
+            timeline: [
+                IG_instructions,
+                { timeline: ebbinghaus_practice },
+                IG_practice_end,
+            ],
+        }
+
+        timeline.push(illusion_practice_block)
+
+        // End =================================================================
         // Exit fullscreen mode
         timeline.push({
             type: jsPsychFullscreen,

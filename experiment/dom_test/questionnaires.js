@@ -150,7 +150,7 @@ var pid5_questionaire = {
         "<p><b>About yourself...</b></p><p>Below is a list of things different people might say about themselves.</p>" +
         "<p>Please select the response that best describes you.</p>",
     require_movement: false,
-    slider_width: 600,
+    slider_width: 700,
     data: {
         screen: "PID5",
     },
