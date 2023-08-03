@@ -177,7 +177,11 @@ function jittered_fixation_cross() {
 }
 
 // Trial
-function IG_create_trial(illusion_name = "Ponzo", type = "updown") {
+function IG_create_trial(
+    illusion_name = "Ponzo",
+    type = "updown",
+    marker = true
+) {
     if (type == "updown") {
         var trial = {
             type: jsPsychImageKeyboardResponse,
@@ -189,10 +193,14 @@ function IG_create_trial(illusion_name = "Ponzo", type = "updown") {
                 return jsPsych.timelineVariable("data")
             },
             on_load: function () {
-                create_marker(marker_position)
+                if (marker) {
+                    create_marker(marker_position)
+                }
             },
             on_finish: function (data) {
-                document.querySelector("#marker").remove()
+                if (marker) {
+                    document.querySelector("#marker").remove()
+                }
                 data.prestimulus_duration =
                     jsPsych.data.get().last(2).values()[0].time_elapsed -
                     jsPsych.data.get().last(3).values()[0].time_elapsed
@@ -251,10 +259,14 @@ function IG_create_trial(illusion_name = "Ponzo", type = "updown") {
                 return jsPsych.timelineVariable("data")
             },
             on_load: function () {
-                create_marker(marker_position)
+                if (marker) {
+                    create_marker(marker_position)
+                }
             },
             on_finish: function (data) {
-                document.querySelector("#marker").remove()
+                if (marker) {
+                    document.querySelector("#marker").remove()
+                }
                 data.prestimulus_duration =
                     jsPsych.data.get().last(2).values()[0].time_elapsed -
                     jsPsych.data.get().last(3).values()[0].time_elapsed
@@ -306,7 +318,14 @@ function IG_create_trial(illusion_name = "Ponzo", type = "updown") {
     return trial
 }
 
-function IG_make_trials(stimuli, instructions, illusion_name, type) {
+function IG_make_trials(
+    stimuli,
+    instructions,
+    illusion_name,
+    type,
+    marker = true,
+    debrief = true
+) {
     var timeline = []
 
     // Set stimuli (var stimuli is loaded in stimuli/stimuli.js)
@@ -335,7 +354,7 @@ function IG_make_trials(stimuli, instructions, illusion_name, type) {
     timeline.push({
         timeline: [
             jittered_fixation_cross(),
-            IG_create_trial(illusion_name, (type = type)),
+            IG_create_trial(illusion_name, (type = type), (marker = marker)),
         ],
         timeline_variables: stim_list,
         randomize_order: true,
@@ -343,28 +362,30 @@ function IG_make_trials(stimuli, instructions, illusion_name, type) {
     })
 
     // Debriefing Information
-    if (stimuli == stimuli_part1 || stimuli == stimuli_part2) {
-        timeline.push(create_debrief((illusion_name = illusion_name)))
-    } else if (stimuli === stimuli_training) {
-        timeline.push({
-            type: jsPsychHtmlButtonResponse,
-            choices: ["Continue"],
-            post_trial_gap: 500,
-            on_start: function () {
-                document.body.style.cursor = "auto"
-            },
-            stimulus: function () {
-                var results = get_results(1000, 400, illusion_name)
-                var show_screen = get_debrief_display(results)
-                return (
-                    show_screen.display_accuracy +
-                    "<hr>" +
-                    show_screen.display_rt
-                    //"<hr><p>Can you do better in the next illusion?</p>"
-                )
-            },
-            data: { screen: "practice_block_results" },
-        })
+    if (debrief) {
+        if (stimuli == stimuli_part1 || stimuli == stimuli_part2) {
+            timeline.push(create_debrief((illusion_name = illusion_name)))
+        } else if (stimuli === stimuli_training) {
+            timeline.push({
+                type: jsPsychHtmlButtonResponse,
+                choices: ["Continue"],
+                post_trial_gap: 500,
+                on_start: function () {
+                    document.body.style.cursor = "auto"
+                },
+                stimulus: function () {
+                    var results = get_results(1000, 400, illusion_name)
+                    var show_screen = get_debrief_display(results)
+                    return (
+                        show_screen.display_accuracy +
+                        "<hr>" +
+                        show_screen.display_rt
+                        //"<hr><p>Can you do better in the next illusion?</p>"
+                    )
+                },
+                data: { screen: "practice_block_results" },
+            })
+        }
     }
     return timeline
 }
@@ -374,21 +395,24 @@ var ebbinghaus_practice = IG_make_trials(
     (stimuli = stimuli_training),
     (instructions = "<p><b>Practice</b></p>" + ebbinghaus_instructions),
     (illusion_name = "Ebbinghaus"),
-    (type = "leftright")
+    (type = "leftright"),
+    (marker = false)
 )
 
 var mullerlyer_practice = IG_make_trials(
     (stimuli = stimuli_training),
     (instructions = "<p><b>Practice</b></p>" + mullerlyer_instructions),
     (illusion_name = "MullerLyer"),
-    (type = "updown")
+    (type = "updown"),
+    (marker = false)
 )
 
 var verticalhorizontal_practice = IG_make_trials(
     (stimuli = stimuli_training),
     (instructions = "<p><b>Practice</b></p>" + verticalhorizontal_instructions),
     (illusion_name = "VerticalHorizontal"),
-    (type = "leftright")
+    (type = "leftright"),
+    (marker = false)
 )
 
 var IG_practice_end = {
@@ -445,18 +469,22 @@ function create_debrief(illusion_name = "Ponzo") {
     return debrief
 }
 
-function IG_create_block(stimuli, block_number = 1) {
+function IG_create_block(stimuli, display_block = true) {
     /* ---------------------- MULLERLYER ILLUSION --------------------- */
     var timeline_mullerlyer = IG_make_trials(
         stimuli,
-        (instructions = function () {
-            return (
-                "<p><b>Part " +
-                block_number +
-                "/6" +
-                "</b></p>" +
-                mullerlyer_instructions
-            )
+        (instructions = function (display_block) {
+            if (display_block) {
+                return (
+                    "<p><b>Part " +
+                    block_number +
+                    "/6" +
+                    "</b></p>" +
+                    mullerlyer_instructions
+                )
+            } else {
+                return mullerlyer_instructions
+            }
         }),
         (illusion_name = "MullerLyer"),
         (type = "updown")
@@ -465,14 +493,18 @@ function IG_create_block(stimuli, block_number = 1) {
     /* --------------------- EBBINGHAUS ILLUSION ---------------------- */
     var timeline_ebbinghaus = IG_make_trials(
         stimuli,
-        (instructions = function () {
-            return (
-                "<p><b>Part " +
-                block_number +
-                "/6" +
-                "</b></p>" +
-                ebbinghaus_instructions
-            )
+        (instructions = function (display_block) {
+            if (display_block) {
+                return (
+                    "<p><b>Part " +
+                    block_number +
+                    "/6" +
+                    "</b></p>" +
+                    ebbinghaus_instructions
+                )
+            } else {
+                return ebbinghaus_instructions
+            }
         }),
         (illusion_name = "Ebbinghaus"),
         (type = "leftright")
@@ -481,14 +513,18 @@ function IG_create_block(stimuli, block_number = 1) {
     /* ----------------- VERTICAL-HORIZONTAL ILLUSION ----------------- */
     var timeline_verticalhorizontal = IG_make_trials(
         stimuli,
-        (instructions = function () {
-            return (
-                "<p><b>Part " +
-                block_number +
-                "/6" +
-                "</b></p>" +
-                verticalhorizontal_instructions
-            )
+        (instructions = function (display_block) {
+            if (display_block) {
+                return (
+                    "<p><b>Part " +
+                    block_number +
+                    "/6" +
+                    "</b></p>" +
+                    verticalhorizontal_instructions
+                )
+            } else {
+                return verticalhorizontal_instructions
+            }
         }),
         (illusion_name = "VerticalHorizontal"),
         (type = "leftright")

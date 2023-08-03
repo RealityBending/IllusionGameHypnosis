@@ -173,11 +173,10 @@
 
         /* ----------------- Preloading ----------------- */
         // Preload audio variables
-        var beep = ["utils/beep.mp3"]
         timeline.push({
             type: jsPsychPreload,
             auto_preload: true,
-            audio: beep,
+            audio: ["utils/beep.mp3"],
         })
 
         /* ============================================================== */
