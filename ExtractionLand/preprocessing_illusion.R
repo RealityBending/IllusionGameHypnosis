@@ -100,7 +100,7 @@ for (participant in participants) {
 
   # Metadata
   # TODO: complete with all the items
-  rs_json <- toJSON(list(
+  metadata_phase1 <- toJSON(list(
     Participant_ID = list(
       Description = "Unique participant identifier"
     ),
@@ -144,79 +144,90 @@ for (participant in participants) {
   ), auto_unbox = TRUE)
 
 
-  # Tapping ====================================================================
-  # df_tap <- data.frame()
-  # for(tap in 1:3) {
-  #   s <- paste0("TAP", tap, "_")
-  #   tap_start <- min(data[!is.na(data$screen) & data$screen == paste0(s, "waiting"), "time_start"])
-  #   tap_times <- data[!is.na(data$screen) & data$screen == paste0(s, "tap"), "time_start"]
-  #
-  #   df_tap <- rbind(
-  #     df_tap,
-  #     data.frame(
-  #       Participant_ID = demo$Participant_ID,
-  #       Trial_Order = 1:length(tap_times),
-  #       Tapping_Times = tap_times - tap_start,
-  #       Condition = ifelse(tap == 1, "Baseline", ifelse(tap == 2, "Slower", "Faster"))
-  #
-  #       )
-  #     )
-  # }
-
-  # TODO
-  tap_json <- list()
-
-
-  # HCT ========================================================================
-  hct_count <- data[!is.na(data$screen) & data$screen == "HCT_count", ]
-  hct_confidence <- data[!is.na(data$screen) & data$screen == "HCT_confidence", ]
-  hct_interval <- data[!is.na(data$screen) & data$screen == "HCT_interval", ]
-
-  df_hct <- data.frame(
-    Participant_ID = demo$Participant_ID,
-    Trial_Order = 1:nrow(hct_count),
-    Answer = as.numeric(unlist(hct_count$response)),
-    Confidence = as.numeric(unlist(lapply(unlist(hct_confidence$response), fromJSON))),
-    Duration = round(hct_interval$duration * 60, 2),
-    Interval = hct_interval$interval
-  )
-
-  # TODO: add json metadata with columns info
-  hct_json <- list()
-
-  # PI-99 ======================================================================
-  pi99 <- data[!is.na(data$screen) & data$screen == "PI99", ]
-  pi99 <- lapply(lapply(unlist(pi99$response), fromJSON), as.data.frame)
-
-  pi99[grepl("_R", names(pi99))] <- 5 - pi99[grepl("_R", names(pi99))]
-
-  df$PI_Enticing <- rowMeans(pi99[grepl("GE_", names(pi99))])
-  df$PI_Alive <- rowMeans(pi99[grepl("A_", names(pi99))])
-  df$PI_Safe <- rowMeans(pi99[grepl("GS_", names(pi99))])
-  df$PI_Good <- rowMeans(pi99[grepl("G", names(pi99))])
-  df$PI_Changing <- rowMeans(pi99[grepl("Changing", names(pi99))])
-  df$PI_Hierarchical <- rowMeans(pi99[grepl("Hierarchical", names(pi99))])
-  df$PI_Understandable <- rowMeans(pi99[grepl("Understandable", names(pi99))])
-
-  # MAIA ======================================================================
-  maia <- data[!is.na(data$screen) & data$screen == "MAIA", ]
-  maia <- lapply(lapply(unlist(maia$response), fromJSON), as.data.frame)
-
-  maia[grepl("_R", names(maia))] <- 1 - maia[grepl("_R", names(maia))]
-
-  df$MAIA_Noticing <- rowMeans(maia[grepl("Noticing", names(maia))])
-  df$MAIA_NotDistracting <- rowMeans(maia[grepl("NotDistracting", names(maia))])
-  df$MAIA_NotWorrying <- rowMeans(maia[grepl("NotWorrying", names(maia))])
-  df$MAIA_AttentionRegulation <- rowMeans(maia[grepl("AttentionRegulation", names(maia))])
-  df$MAIA_EmotionalAwareness <- rowMeans(maia[grepl("EmotionalAwareness", names(maia))])
-  df$MAIA_SelfRegulation <- rowMeans(maia[grepl("SelfRegulation", names(maia))])
-  df$MAIA_BodyListening <- rowMeans(maia[grepl("BodyListening", names(maia))])
-  df$MAIA_Trusting <- rowMeans(maia[grepl("Trusting", names(maia))])
-
-  # IAS ======================================================================
-  ias <- data[!is.na(data$screen) & data$screen == "IAS", ]
-  ias <- lapply(lapply(unlist(ias$response), fromJSON), as.data.frame)
-}
+  # IPIP6 =====================================================================
+  ipip6 <- data[!is.na(data$screen) & data$screen == "IPIP6", ]
+  ipip6 <- lapply(lapply(unlist(ipip6$response), fromJSON), as.data.frame)
+  
+  
+  # Reverse scores with "_R" suffix
+  ipip6[grepl("_R", names(ipip6))] <- 7 - ipip6[grepl("_R", names(ipip6))]
+  
+  
+  # Calculate scores for IPIP6 dimensions
+  df$IPIP6_Extraversion <- rowMeans(ipip6[grepl("Extraversion", names(ipip6))])
+  df$IPIP6_Agreeableness <- rowMeans(ipip6[grepl("Agreeableness", names(ipip6))])
+  df$IPIP6_Conscientiousness <- rowMeans(ipip6[grepl("Conscientiousness", names(ipip6))])
+  df$IPIP6_Neuroticism <- rowMeans(ipip6[grepl("Neuroticism", names(ipip6))])
+  df$IPIP6_Openness <- rowMeans(ipip6[grepl("Openness", names(ipip6))])
+  df$IPIP6_HonestyHumility <- rowMeans(ipip6[grepl("HonestyHumility", names(ipip6))])
+  
+  # Metadata for IPIP6
+  ipip6_json <- toJSON(list(
+    IPIP6_Extraversion = list(
+      Description = "Extraversion dimension score for IPIP6 questionnaire",
+      Units = "NA"  
+    ),
+    IPIP6_Agreeableness = list(
+      Description = "Agreeableness dimension score for IPIP6 questionnaire",
+      Units = "NA"
+    ),
+    IPIP6_Conscientiousness = list(
+      Description = "Conscientiousness dimension score for IPIP6 questionnaire",
+      Units = "NA"
+    ),
+    IPIP6_Neuroticism = list(
+      Description = "Neuroticism dimension score for IPIP6 questionnaire",
+      Units = "NA"
+    ),
+    IPIP6_Openness = list(
+      Description = "Openness dimension score for IPIP6 questionnaire",
+      Units = "NA"
+    ),
+    IPIP6_HonestyHumility = list(
+      Description = "HonestyHumility dimension score for IPIP6 questionnaire",
+      Units = "NA"
+    )
+  ), auto_unbox = TRUE)
+  
+  
+  # PID5 ======================================================================
+  pid5 <- data[!is.na(data$screen) & data$screen == "PID5", ]
+  pid5 <- lapply(lapply(unlist(pid5$response), fromJSON), as.data.frame)
+  
+  # Reverse scores with "_R" suffix
+  pid5[grepl("_R", names(pid5))] <- 5 - pid5[grepl("_R", names(pid5))]
+  
+  # Calculate scores for PID5 dimensions
+  df$PID5_Disinhibition <- rowMeans(pid5[grepl("Disinhibition", names(pid5))])
+  df$PID5_Detachment <- rowMeans(pid5[grepl("Detachment", names(pid5))])
+  df$PID5_Psychoticism <- rowMeans(pid5[grepl("Psychoticism", names(pid5))])
+  df$PID5_NegativeAffect <- rowMeans(pid5[grepl("NegativeAffect", names(pid5))])
+  df$PID5_Antagonism <- rowMeans(pid5[grepl("Antagonism", names(pid5))])
+  
+  # Metadata for PID5
+  pid5_json <- toJSON(list(
+    PID5_Disinhibition = list(
+      Description = "Disinhibition dimension score for PID5 questionnaire",
+      Units = "NA"  
+    ),
+    PID5_Detachment = list(
+      Description = "Detachment dimension score for PID5 questionnaire",
+      Units = "NA"
+    ),
+    PID5_Psychoticism = list(
+      Description = "Psychoticism dimension score for PID5 questionnaire",
+      Units = "NA"
+    ),
+    PID5_NegativeAffect = list(
+      Description = "Negative Affect dimension score for PID5 questionnaire",
+      Units = "NA"
+    ),
+    PID5_Antagonism = list(
+      Description = "Antagonism dimension score for PID5 questionnaire",
+      Units = "NA"
+    )
+  ), auto_unbox = TRUE)
+  
 
 # Copy physio into clean
 
