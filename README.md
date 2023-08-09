@@ -1,6 +1,6 @@
 # IllusionGameHypnosis
 
-<img align="right" height="" src="https://i.imgur.com/tGcP1eh.png">
+<img align="right" height="500" src="https://i.imgur.com/tGcP1eh.png">
 
 
 
