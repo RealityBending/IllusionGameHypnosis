@@ -2,7 +2,7 @@
 
 <img align="right" height="500" src="https://i.imgur.com/tGcP1eh.png">
 
-
+*Now behave and construct the reality I want you to*
 
 
 
