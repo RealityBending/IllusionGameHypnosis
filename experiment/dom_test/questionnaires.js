@@ -109,6 +109,24 @@ var pid_dimensions = [
     "Antagonism_25",
 ]
 
+//Mini suggestibility scale
+var mss_items = [
+    "I enjoy going along with the crowd",
+    "I am easily influenced by other people",
+    "I am easily talked into doing silly things",
+    "I am a people pleaser",
+    "I enjoy and seek out new experiences",
+]
+var mss_dimensions = [
+    "Suggestibility_1",
+    "Suggestibility_2",
+    "Suggestibility_3",
+    "Suggestibility_4",
+    "Suggestibility_5",
+]
+
+
+
 // Questionnaire ========================================================================
 
 // IPIP
@@ -155,3 +173,35 @@ var pid5_questionaire = {
         screen: "PID5",
     },
 }
+
+//MSS questions
+var mss_questions = []
+for (const [index, element] of mss_items.entries()) {
+    mss_questions.push({
+        prompt: "<b>" + element + "</b>",
+        name: mss_dimensions[index],
+        labels: [
+            "Very or Often False",
+            "Sometimes or Somewhat False",
+            "Sometimes or Somewhat True",
+            "Very or Often True",
+        ],
+        required: false,
+    })
+}
+
+// MSS
+var mss_questionaire = {
+    type: jsPsychSurveyLikert,
+    questions: mss_questions,
+    randomize_question_order: false,
+    preamble:
+        "<p><b>About yourself...</b></p><p>Below is a list of things different people might say about themselves.</p>" +
+        "<p>Please select the response that best describes you.</p>",
+    require_movement: false,
+    slider_width: 700,
+    data: {
+        screen: "MSS",
+    },
+}
+
