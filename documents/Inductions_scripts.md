@@ -4,14 +4,19 @@
 
 *aka Explicit Attentional Instruction*
 
+### Expectations
+
+You are going to listen to instructions designed at helping you reach a state of heightened focus and ability to direct your mind.
+
 ### Posture Preparation
 
-Sitting in a comfortable position, allow your shoulders to drop and relax, and plant your feet firmly on the ground.
-Feel the contact between your feet and the floor beneath you.
+Now, please find a comfortable seated position, and rest your hands gently on the desk. Allow your shoulders to drop and relax, and plant your feet firmly on the ground.
+Close your eyes and focus solely on ***following the instructions***.
+Take slow, easy breaths, allowing your body to settle into this state of ***meditation***.
 
 ### Mental State Induction
 
-Now gently close your eyes, and for the next few breaths bring your full focus of attention to your breathing.
+For the next few breaths bring your full focus of attention to your breathing.
 Notice the feeling of the air flowing in through the nostrils, down into the lungs, and down into the belly as you inhale.
 On the exhale, feel the release of any tension as you let the air out slowly.
 Now, imagine that you are sitting by the side of a gently flowing stream.
@@ -64,12 +69,15 @@ You might like to take another minute to sit quietly before carrying on with you
 
 ## Hypnosis
 
+### Expectations
+
+You are going to listen to instructions designed at helping you reach a state of heightened focus and ability to direct your mind.
+
 ### Posture Preparation
 
-Now, please find a comfortable seated position that allows you to relax fully.
-Rest your hands gently in your lap.
+Now, please find a comfortable seated position, and rest your hands gently on the desk. Allow your shoulders to drop and relax, and plant your feet firmly on the ground.
 Close your eyes and focus solely on my soothing voice.
-Take slow, easy breaths, allowing your body to settle into this state of relaxation.
+Take slow, easy breaths, allowing your body to settle into this state of ***relaxation***.
 
 
 ### Mental State Induction
