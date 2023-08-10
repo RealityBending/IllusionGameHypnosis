@@ -6,13 +6,13 @@
 
 ### Expectations
 
-You are going to listen to instructions designed at helping you reach a state of heightened focus and ability to direct your mind.
+You are about to receive instructions aimed at enhancing your focus and directing your inner awareness.
 
 ### Posture Preparation
 
-Now, please find a comfortable seated position, and rest your hands gently on the desk. Allow your shoulders to drop and relax, and plant your feet firmly on the ground.
-Close your eyes and focus solely on ***following the instructions***.
-Take slow, easy breaths, allowing your body to settle into this state of ***meditation***.
+Begin by finding a comfortable seated position and placing your hands gently on the desk. Allow your shoulders to relax, and firmly ground your feet.
+Gently close your eyes and direct your attention solely to following the guidance to reach a state of ***relaxation***.
+Inhale and exhale slowly, letting your body settle into this state of ***meditation***.
 
 ### Mental State Induction
 
@@ -46,26 +46,22 @@ Now from time to time, your thoughts will hook you, and you will lose track of t
 This is normal as our attention naturally wanders, and it will happen time and time again.
 As soon as you realize this has happened, simply come back to your stream.
 
-
-
 ### Preparation for upcoming task
 
-Continuing to place each thought that pops into your mind on a leaf and watching it slip by.
-Much like the visual illusions you saw before this mindfulness session, we can know something is there, and instead of holding on to it, just simply choose to let it go.
-When thoughts come up, we can quell this movement and return to a state of peace that we choose and carve out ourselves.
-Much the same can be done when seeing visual illusions.
-When you return to the tasks later, you may find it easy to ignore the biasing red components, choosing to let them wash over you and go, accepting them and letting go, much like thoughts that may try to hold you.
-Through this, you can see what is there.
-By focusing on what you want to do, which is see through the illusion and its biasing red elements.
+Continue this practice, placing each thought on a leaf and allowing it to drift away.
+Much like observing visual illusions, acknowledge the presence of thoughts without clinging to them.
+Just as you choose to release biasing black elements in the illusions, choose to let go of thoughts that attempt to hold you.
+In this process, you will perceive what is present.
+Focus on your intention, which is to see through the illusion and its black biasing components, to
+see the truth of the red elements underneath.
 
 ### State exit
 
-Again and again, your thoughts will hook you.
-Remember, this is normal.
-As soon as you notice this has happened, simply come back to your stream.
-As the exercise comes to an end, begin to let go of your imagined stream and bring your attention back to where you are.
-Notice what you can hear, what you can feel, and when you're ready, open your eyes and notice what you can see.
-You might like to take another minute to sit quietly before carrying on with your day, holding on to this sense of presence and spaciousness from thinking.
+Your thoughts may still distract you at times, and that's perfectly normal.
+Each time you notice, guide your attention back to the stream.
+As this exercise concludes, gradually release the imagery of the stream and reorient your awareness to your surroundings.
+Notice sounds, sensations, and, when you're ready, open your eyes to the visual world.
+You might want to pause for a moment before continuing with your day, carrying this sense of presence forward.
 
 ## Hypnosis
 
@@ -75,40 +71,40 @@ You are going to listen to instructions designed at helping you reach a state of
 
 ### Posture Preparation
 
-Now, please find a comfortable seated position, and rest your hands gently on the desk. Allow your shoulders to drop and relax, and plant your feet firmly on the ground.
-Close your eyes and focus solely on my soothing voice.
-Take slow, easy breaths, allowing your body to settle into this state of ***relaxation***.
-
+Find a comfortable seated position, resting your hands on the desk. Let your shoulders relax as you ground your feet.
+Close your eyes, and let your entire focus rest on my calming voice.
+Take slow, calming breaths, inviting your body to sink into a state of profound ***ease and comfort***
 
 ### Mental State Induction
 
-As you listen to my words, you will gradually enter a peaceful state of hypnosis.
-Your willingness to be here today indicates your desire to experience all that this hypnotic journey offers.
-Hypnosis is a natural process, and all you need to do is follow my guidance and concentrate on my words.
-Relaxation will come effortlessly as you embrace the ideas I present.
-There's nothing to fear; this experience is entirely safe and comfortable.
-If your thoughts wander, that's alright; simply refocus on my words, and you will easily slip deeper into hypnosis.
-As you think of relaxing, your muscles will begin to relax. Starting with your right foot, relax the muscles of your right leg.
-Now the muscles of your left leg.
-Just relax all over.
-Relax your right hand... your forearm... upper arm... and shoulder... That's right.
-Now your left hand... and forearm... and upper arm... and shoulder.
-Relax your neck and chest.
-More and more relaxed... completely relaxed.
-
+As my words flow, you will naturally enter a tranquil state of hypnosis.
+Your presence here indicates your eagerness to embrace the journey of hypnosis.
+Hypnosis is a natural process; follow my guidance and absorb my words.
+Relaxation will effortlessly envelop you as you embrace the ideas I present.
+This experience is entirely safe and soothing.
+If your thoughts wander, gently bring them back to my words to deepen your hypnotic state.
+As you think of relaxation, feel the soothing waves of calmness spreading through your body.
+Starting with your right foot, release the tension in your leg.
+Now, your left leg.
+Let relaxation cascade throughout your body.
+Relax your right hand, forearm, upper arm, and shoulder. Feel the tension melt away.
+Now your left hand, forearm, upper arm, and shoulder.
+Ease permeates your neck and chest.
+You are now profoundly relaxed.
 
 ### Reinforcement
 
-With each passing moment, you'll feel your body becoming deeply at ease, comfortably sinking into the chair.
-A pleasant feeling of heaviness and comfort will flow through your legs, hands, and arms, enveloping your entire being.
-You are now deeply relaxed, and with every word I utter, you will feel even more tranquil.
-As I count, you will feel yourself going down further and further into a deeply relaxed, a deeply hypnotized state, but you will be able to do all sorts of things I ask you to do without waking up... One... you are going to become more deeply relaxed and hypnotized... Two... down, down deeper, and deeper... Three... Four... you are sinking deeper and deeper into hypnosis.
-Nothing will disturb you... five... six... although deeply hypnotized, you can hear me clearly.
-You will always hear me distinctly no matter how deeply hypnotized you become... Seven... Eight... deeply hypnotized.
-Nothing will disturb you.
-You are going to experience many things that I will tell you to experience... Nine... Ten.
-Deeply hypnotized now! You will remain hypnotized until I tell you otherwise.
-You will wish to remain relaxed and hypnotized and to have the experiences I describe to you.
+With each passing moment, a sense of deep tranquility will anchor within you, gently enveloping your limbs.
+A comforting heaviness will flow through your legs, hands, and arms, cocooning your being in serenity.
+You are deeply at ease, and with every word I utter, this tranquility will deepen.
+As I count, you'll sink even further into a transcendental hypnotic state, yet remain open to following my instructions without awakening.
+One... deeper into relaxation and hypnosis... Two... descending into profound tranquility... Three... Four... deeper into hypnosis.
+You are undisturbed... five... six... deeply immersed in hypnosis, my voice clear in your mind.
+No matter how deeply you drift, my voice remains distinct... Seven... Eight... immersed in hypnosis.
+Disturbances fade away.
+You'll experience as directed... Nine... Ten.
+Deeply hypnotized, and you will stay this way until I guide you otherwise.
+You'll remain relaxed, hypnotized, and receptive to my descriptions.
 
 ### Preparation for Upcoming Task
 
@@ -116,13 +112,14 @@ Although deeply relaxed and hypnotized, you will retain the ability to write, mo
 You are in complete control of your experience.
 Now, as we return to the visual illusion tasks, keep this relaxed state easily accessible.
 Pay closer attention to the elements that bias the illusion.
-Just as you've chosen to embrace this relaxation, you can effortlessly choose to ignore the red components in the tasks, focusing instead on the black elements.
+Just as you've chosen to embrace this relaxation, you can effortlessly choose to ignore the black components in the tasks, focusing instead on the red elements.
 This process will be simple and stress-free, and if your focus drifts, you can easily return to this state by re-centering your attention on my voice.
 
 ### State Exit
 
-I'll now leave you to continue with the visual illusion tasks, but before that, let's reinforce this hypnotic state.
-Remember, drifting in and out is natural, and returning to this relaxed state is just as easy as drifting away.
-Now, I'll count from one to five.
-When I reach five, you can open your eyes and continue with the tasks, maintaining this state of deep relaxation, while effortlessly ignoring any red components you encounter.
-One... take a deep breath... Two... feeling more refreshed and aware... Three... a sense of calmness surrounding you... Four... becoming more alert and ready to proceed... Five... open your eyes and continue, feeling relaxed and focused.
+Now, as you continue with the visual illusion tasks, remember that drifting in and out is natural.
+Returning to this serene state is as effortless as drifting away.
+Counting from one to five, you'll reawaken to proceed, carrying this relaxation with you. seeing
+past the illusion's biasing elements and perceiving the truth of the red elements underneath.
+One... take a deep breath... Two... heightened awareness and refreshment... Three... enveloped in calmness... Four... ready to proceed... Five... open your eyes, maintaining relaxation and focus.
+"
