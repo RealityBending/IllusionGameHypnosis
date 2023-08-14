@@ -9,7 +9,7 @@ version = "1.0"
 // Resting state duration in min
 rs_duration = 8
 // [x, y, width, height] in pixels. Set to [0, 0, 0, 0] to disable.
-marker_position = [0, 0, 200, 200]
+marker_position = [0, 0, 100, 100]
 // Debriefing questionnaire
 var rs_items = [
     "I had busy thoughts",
