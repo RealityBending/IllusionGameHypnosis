@@ -1,251 +1,255 @@
 <!-- Load jsPsych 7.3.1 (last updated: 19/10/1991)-->
 <!DOCTYPE html>
 <html>
+    <head>
+        <!--create title shown in tab; not the same as header on webpage-->
+        <title>IGH - Phase 1</title>
 
-<head>
-    <!--create title shown in tab; not the same as header on webpage-->
-    <title>IGH - Phase 1</title>
+        <script src="utils/jspsych/jspsych.js"></script>
 
-    <script src="utils/jspsych/jspsych.js"></script>
+        <!--Load all necessary plugins stored in utils-->
+        <script src="utils/jspsych/plugin-html-keyboard-response.js"></script>
+        <script src="utils/jspsych/plugin-browser-check.js"></script>
+        <script src="utils/jspsych/plugin-html-button-response.js"></script>
+        <script src="utils/jspsych/plugin-fullscreen.js"></script>
+        <script src="utils/jspsych/plugin-survey-text.js"></script>
+        <script src="utils/jspsych/plugin-audio-button-response.js"></script>
+        <script src="utils/jspsych/plugin-canvas-button-response.js"></script>
+        <script src="utils/jspsych/plugin-preload.js"></script>
+        <script src="utils/jspsych/multiple-slider.js"></script>
+        <script src="utils/jspsych/extension-record-video.js"></script>
+        <script src="utils/jspsych/plugin-initialize-camera.js"></script>
+        <script src="utils/jspsych/plugin-survey-likert.js"></script>
+        <script src="utils/jspsych/plugin-image-keyboard-response.js"></script>
+        <script src="utils/jspsych/plugin-survey-multi-choice.js"></script>
 
-    <!--Load all necessary plugins stored in utils-->
-    <script src="utils/jspsych/plugin-html-keyboard-response.js"></script>
-    <script src="utils/jspsych/plugin-browser-check.js"></script>
-    <script src="utils/jspsych/plugin-html-button-response.js"></script>
-    <script src="utils/jspsych/plugin-fullscreen.js"></script>
-    <script src="utils/jspsych/plugin-survey-text.js"></script>
-    <script src="utils/jspsych/plugin-audio-button-response.js"></script>
-    <script src="utils/jspsych/plugin-canvas-button-response.js"></script>
-    <script src="utils/jspsych/plugin-preload.js"></script>
-    <script src="utils/jspsych/multiple-slider.js"></script>
-    <script src="utils/jspsych/extension-record-video.js"></script>
-    <script src="utils/jspsych/plugin-initialize-camera.js"></script>
-    <script src="utils/jspsych/plugin-survey-likert.js"></script>
-    <script src="utils/jspsych/plugin-image-keyboard-response.js"></script>
-    <script src="utils/jspsych/plugin-survey-multi-choice.js"></script>
+        <!-- Load parameters here (always below the loading of the JsPsych) -->
+        <script src="RestingState.js"></script>
+        <script src="questionnaires.js"></script>
 
-    <!-- Load parameters here (always below the loading of the JsPsych) -->
-    <script src="RestingState.js"></script>
-    <script src="questionnaires.js"></script>
+        <!-- Load stimuli data and IG stuff  -->
+        <script src="stimuli/stimuli_training.js"></script>
+        <script src="stimuli/stimuli_part1.js"></script>
+        <script src="stimuli/stimuli_part2.js"></script>
+        <script src="IllusionGame.js"></script>
 
-    <!-- Load stimuli data and IG stuff  -->
-    <script src="stimuli/stimuli_training.js"></script>
-    <script src="stimuli/stimuli_part1.js"></script>
-    <script src="stimuli/stimuli_part2.js"></script>
-    <script src="IllusionGame.js"></script>
-
-    <link href="utils/jspsych/jspsych.css" rel="stylesheet" type="text/css" />
-    <style>
-        /* set canvas to be full screen */
-        .jspsych-content {
-            max-width: 100%;
-        }
-
-        /*Hide scrollbar while keeping it functional */
-        body {
-            overflow-y: scroll;
-        }
-
-        Body::-webkit-scrollbar {
-            display: none;
-        }
-    </style>
-</head>
-
-<body></body>
-
-<script>
-    /* ----------------- Initialize experiment ----------------- */
-    var timeline = []
-
-    var jsPsych = initJsPsych({
-        // override_safe_mode: true,
-        on_finish: function () {
-            // jsPsych.data.displayData("json")
-            jsPsych.data
-                .get()
-                .localSave(
-                    "json",
-                    `${jsPsych.data.get().values()[0]["participant_id"]
-                    }.json`
-                )
-        },
-    })
-
-    // Enter fullscreen mode
-    timeline.push({
-        type: jsPsychFullscreen,
-        fullscreen_mode: true,
-        delay_after: 0,
-    })
-
-    // Retrieve and save browser info
-    var browser_check = {
-        type: jsPsychBrowserCheck,
-        data: {
-            screen: "browser_info",
-        },
-        on_finish: function () {
-            data = jsPsych.data
-                .get()
-                .filter({ screen: "browser_info" })
-                .values()[0]
-            jsPsych.data.addProperties({
-                ["screen_height"]: data["height"],
-                ["screen_width"]: data["width"],
-            })
-            for (var key in data) {
-                if (
-                    [
-                        "vsync_rate",
-                        "os",
-                        "mobile",
-                        "browser",
-                        "browser_version",
-                    ].includes(key)
-                ) {
-                    jsPsych.data.addProperties({
-                        [key]: data[key],
-                    })
-                }
+        <link
+            href="utils/jspsych/jspsych.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <style>
+            /* set canvas to be full screen */
+            .jspsych-content {
+                max-width: 100%;
             }
-            jsPsych.data.addProperties()
-        },
-    }
-    timeline.push(browser_check)
 
-    /* ----------------- Session Info ----------------- */
+            /*Hide scrollbar while keeping it functional */
+            body {
+                overflow-y: scroll;
+            }
 
-    // Participant information
-    var participant_info = {
-        type: jsPsychSurveyText,
-        questions: [
-            {
-                prompt: "Enter the participant's ID:",
-                placeholder: "S00",
-                name: "Participant_ID",
+            Body::-webkit-scrollbar {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body></body>
+
+    <script>
+        /* ----------------- Initialize experiment ----------------- */
+        var timeline = []
+
+        var jsPsych = initJsPsych({
+            // override_safe_mode: true,
+            on_finish: function () {
+                // jsPsych.data.displayData("json")
+                jsPsych.data
+                    .get()
+                    .localSave(
+                        "json",
+                        `${
+                            jsPsych.data.get().values()[0]["participant_id"]
+                        }.json`
+                    )
             },
-        ],
-        data: {
-            screen: "participant_info",
-            version: version,
-            date: new Date().toLocaleDateString("fr-FR"),
-            time: new Date().toLocaleTimeString("fr-FR"),
-        },
-        on_finish: function () {
-            jsPsych.data.addProperties({
-                participant_id: jsPsych.data.get().last().values()[0][
-                    "response"
-                ]["Participant_ID"],
-            })
-        },
-    }
-    timeline.push(participant_info)
+        })
 
-    var demographics = {
-        type: jsPsychSurveyText,
-        questions: [
-            {
-                prompt: "Please enter your age (in years)",
-                placeholder: "e.g., '31'",
-                name: "age",
+        // Enter fullscreen mode
+        timeline.push({
+            type: jsPsychFullscreen,
+            fullscreen_mode: true,
+            delay_after: 0,
+        })
+
+        // Retrieve and save browser info
+        var browser_check = {
+            type: jsPsychBrowserCheck,
+            data: {
+                screen: "browser_info",
             },
-            {
-                prompt: "Please enter your gender",
-                placeholder: "e.g., Female",
-                name: "gender",
+            on_finish: function () {
+                data = jsPsych.data
+                    .get()
+                    .filter({ screen: "browser_info" })
+                    .values()[0]
+                jsPsych.data.addProperties({
+                    ["screen_height"]: data["height"],
+                    ["screen_width"]: data["width"],
+                })
+                for (var key in data) {
+                    if (
+                        [
+                            "vsync_rate",
+                            "os",
+                            "mobile",
+                            "browser",
+                            "browser_version",
+                        ].includes(key)
+                    ) {
+                        jsPsych.data.addProperties({
+                            [key]: data[key],
+                        })
+                    }
+                }
+                jsPsych.data.addProperties()
             },
-            {
-                prompt: "Please enter your ethnicity",
-                placeholder: "e.g., Caucasian",
-                name: "ethnicity",
+        }
+        timeline.push(browser_check)
+
+        /* ----------------- Session Info ----------------- */
+
+        // Participant information
+        var participant_info = {
+            type: jsPsychSurveyText,
+            questions: [
+                {
+                    prompt: "Enter the participant's ID:",
+                    placeholder: "S00",
+                    name: "Participant_ID",
+                },
+            ],
+            data: {
+                screen: "participant_info",
+                version: version,
+                date: new Date().toLocaleDateString("fr-FR"),
+                time: new Date().toLocaleTimeString("fr-FR"),
             },
-        ],
-        data: {
-            screen: "demographics",
-        },
-    }
-    timeline.push(demographics)
+            on_finish: function () {
+                jsPsych.data.addProperties({
+                    participant_id: jsPsych.data.get().last().values()[0][
+                        "response"
+                    ]["Participant_ID"],
+                })
+            },
+        }
+        timeline.push(participant_info)
 
-    /* ----------------- Preloading ----------------- */
-    // Preload audio variables
-    timeline.push({
-        type: jsPsychPreload,
-        auto_preload: true,
-        audio: ["utils/beep.mp3"],
-    })
+        var demographics = {
+            type: jsPsychSurveyText,
+            questions: [
+                {
+                    prompt: "Please enter your age (in years)",
+                    placeholder: "e.g., '31'",
+                    name: "age",
+                },
+                {
+                    prompt: "Please enter your gender",
+                    placeholder: "e.g., Female",
+                    name: "gender",
+                },
+                {
+                    prompt: "Please enter your ethnicity",
+                    placeholder: "e.g., Caucasian",
+                    name: "ethnicity",
+                },
+                {
+                    prompt: "English level (native, fluent, intermediate, beginner)",
+                    placeholder: "native, fluent, intermediate, beginner",
+                    name: "english",
+                },
+            ],
+            data: {
+                screen: "demographics",
+            },
+        }
+        timeline.push(demographics)
 
-    /* ============================================================== */
-    /* -------------------- Resting State + Q ----------------------- */
-    /* ============================================================== */
+        /* ----------------- Preloading ----------------- */
+        // Preload audio variables
+        timeline.push({
+            type: jsPsychPreload,
+            auto_preload: true,
+            audio: ["utils/beep.mp3"],
+        })
 
+        /* ============================================================== */
+        /* -------------------- Resting State + Q ----------------------- */
+        /* ============================================================== */
 
-    // Questionnaires -----------------------------------------------------
-    timeline.push(ipip6_questionaire)
-    timeline.push(pid5_questionaire)
-    timeline.push(mss_questionaire)
-    timeline.push(native_english_questionaire)
+        // Questionnaires -----------------------------------------------------
+        timeline.push(ipip6_questionaire)
+        timeline.push(pid5_questionaire)
+        timeline.push(mss_questionaire)
 
-    // RS -----------------------------------------------------------------
-    // Instructions
-    timeline.push(RS_instructions)
-    // Create blank grey screen just before rest period
-    timeline.push(RS_buffer)
-    // Create blank grey screen for resting state
-    timeline.push(RS_task)
-    // Play beep
-    timeline.push(RS_beep)
-    // Add debriefing questionnaire
-    timeline.push(RS_questionnaire)
+        // RS -----------------------------------------------------------------
+        // Instructions
+        timeline.push(RS_instructions)
+        // Create blank grey screen just before rest period
+        timeline.push(RS_buffer)
+        // Create blank grey screen for resting state
+        timeline.push(RS_task)
+        // Play beep
+        timeline.push(RS_beep)
+        // Add debriefing questionnaire
+        timeline.push(RS_questionnaire)
 
+        /* ============================================================== */
+        /* -------------------- Illusion Game --- ----------------------- */
+        /* ============================================================== */
 
+        // Practice -----------------------------------------------------------------
 
-    /* ============================================================== */
-    /* -------------------- Illusion Game --- ----------------------- */
-    /* ============================================================== */
+        // Preload Instructions Stimuli
+        timeline.push({
+            type: jsPsychPreload,
+            images: [
+                "materials/instructions/Ebbinghaus_Demo.png",
+                "materials/instructions/MullerLyer_Demo.png",
+                "materials/instructions/VerticalHorizontal_Demo.png",
+            ],
+        })
 
-    // Practice -----------------------------------------------------------------
+        var illusion_practice_block = {
+            timeline: [
+                IG_instructions,
+                { timeline: ebbinghaus_practice },
+                { timeline: mullerlyer_practice },
+                { timeline: verticalhorizontal_practice },
+                IG_practice_end,
+            ],
+        }
 
-    // Preload Instructions Stimuli
-    timeline.push({
-        type: jsPsychPreload,
-        images: [
-            "materials/instructions/Ebbinghaus_Demo.png",
-            "materials/instructions/MullerLyer_Demo.png",
-            "materials/instructions/VerticalHorizontal_Demo.png",
-        ],
-    })
+        timeline.push(illusion_practice_block)
 
-    var illusion_practice_block = {
-        timeline: [
-            IG_instructions,
-            { timeline: ebbinghaus_practice },
-            { timeline: mullerlyer_practice },
-            { timeline: verticalhorizontal_practice },
-            IG_practice_end,
-        ],
-    }
+        // Task Blocks -----------------------------------------------------------------
 
-    timeline.push(illusion_practice_block)
+        for (var task of jsPsych.randomization.shuffleNoRepeats([
+            IG_create_block(stimuli_part1),
+            IG_create_block(stimuli_part2),
+        ])) {
+            timeline.push(task)
+        }
 
-    // Task Blocks -----------------------------------------------------------------
+        // End =================================================================
+        // Exit fullscreen mode
+        timeline.push({
+            type: jsPsychFullscreen,
+            fullscreen_mode: false,
+        })
 
-    for (var task of jsPsych.randomization.shuffleNoRepeats([
-        IG_create_block(stimuli_part1),
-        IG_create_block(stimuli_part2),
-    ])) {
-        timeline.push(task)
-    }
-
-    // End =================================================================
-    // Exit fullscreen mode
-    timeline.push({
-        type: jsPsychFullscreen,
-        fullscreen_mode: false,
-    })
-
-    /* ----------------- Run the timeline ----------------- */
-    jsPsych.run(timeline)
-</script>
-
+        /* ----------------- Run the timeline ----------------- */
+        jsPsych.run(timeline)
+    </script>
 </html>
