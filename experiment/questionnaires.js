@@ -125,6 +125,14 @@ var mss_dimensions = [
     "Suggestibility_5",
 ]
 
+//Native english speaker
+var native_english_items = [
+    "I am a native English speaker",
+]
+var native_english_dimensions = [
+    "NativeEnglish",
+]
+
 
 
 // Questionnaire ========================================================================
@@ -202,6 +210,21 @@ var mss_questionaire = {
     slider_width: 700,
     data: {
         screen: "MSS",
+    },
+}
+
+// Native English speaker
+var native_english_questionaire = {
+    type: jsPsychMultipleSlider,
+    // This function is loaded in RestingState.js
+    questions: format_questions_analog(native_english_items, native_english_dimensions),
+    randomize_question_order: false,
+    preamble:
+        "<p><b>About your language comprehension</p>",
+    require_movement: false,
+    slider_width: 600,
+    data: {
+        screen: "NativeEnglish",
     },
 }
 
