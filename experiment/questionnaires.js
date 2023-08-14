@@ -109,20 +109,54 @@ var pid_dimensions = [
     "Antagonism_25",
 ]
 
-//Mini suggestibility scale
-var mss_items = [
-    "I enjoy going along with the crowd",
-    "I am easily influenced by other people",
-    "I am easily talked into doing silly things",
-    "I am a people pleaser",
-    "I enjoy and seek out new experiences",
+// Short Suggestibility Scale (SSS  21 items; Kotov, Bellman & Watson, 2004)
+// From the Multidimensional Iowa Suggestibility Scale (MISS)
+var sss_items = [
+    "I am easily influenced by other people's opinions",
+    "I can be influenced by a good commercial",
+    "When someone coughs or sneezes, I usually feel the urge to do the same",
+    "Imagining a refreshing drink can make me thirsty",
+    "A good salesperson can really make me want their product",
+    "I get a lot of good practical advice from magazines or TV",
+    "If a product is nicely displayed, I usually want to buy it",
+    "When I see someone shiver, I often feel a chill myself",
+    "I get my style from certain celebrities",
+    "When people tell me how they feel, I often notice that I feel the same way",
+    "When making a decision, I often follow other people's advice",
+    "Reading descriptions of tasty dishes can make my mouth water",
+    "I get many good ideas from others",
+    "I frequently change my opinion after talking with others",
+    "After I see a commercial for lotion, sometimes my skin feels dry",
+    "I discovered many of my favorite things through my friends",
+    "I follow current fashion trends",
+    "Thinking about something scary can make my heart pound",
+    "I have picked-up many habits from my friends",
+    "If I am told I don't look well, I start feeling ill",
+    "It is important for me to fit in",
 ]
-var mss_dimensions = [
-    "Suggestibility_1",
-    "Suggestibility_2",
-    "Suggestibility_3",
-    "Suggestibility_4",
-    "Suggestibility_5",
+
+var sss_dimensions = [
+    "SSS_1",
+    "SSS_2",
+    "SSS_3",
+    "SSS_4",
+    "SSS_5",
+    "SSS_6",
+    "SSS_7",
+    "SSS_8",
+    "SSS_9",
+    "SSS_10",
+    "SSS_11",
+    "SSS_12",
+    "SSS_13",
+    "SSS_14",
+    "SSS_15",
+    "SSS_16",
+    "SSS_17",
+    "SSS_18",
+    "SSS_19",
+    "SSS_20",
+    "SSS_21",
 ]
 
 // Questionnaire ========================================================================
@@ -172,33 +206,33 @@ var pid5_questionaire = {
     },
 }
 
-//MSS questions
-var mss_questions = []
-for (const [index, element] of mss_items.entries()) {
-    mss_questions.push({
+// SSS
+var sss_questions = []
+for (const [index, element] of sss_items.entries()) {
+    sss_questions.push({
         prompt: "<b>" + element + "</b>",
-        name: mss_dimensions[index],
+        name: sss_dimensions[index],
         labels: [
-            "Very or Often False",
-            "Sometimes or Somewhat False",
-            "Sometimes or Somewhat True",
-            "Very or Often True",
+            "Not at all or very slightly",
+            "A little",
+            "Somewhat",
+            "Quite a bit",
+            "A lot",
         ],
         required: false,
     })
 }
 
-// MSS
-var mss_questionaire = {
+var sss_questionaire = {
     type: jsPsychSurveyLikert,
-    questions: mss_questions,
-    randomize_question_order: false,
+    questions: sss_questions,
+    randomize_question_order: true,
     preamble:
-        "<p><b>About yourself...</b></p><p>Below is a list of things different people might say about themselves.</p>" +
-        "<p>Please select the response that best describes you.</p>",
+        "<p><b>About your sensitivity and adaptability...</b></p>" +
+        "<p>Please indicate to what extent the following statements apply to you.</p>",
     require_movement: false,
     slider_width: 700,
     data: {
-        screen: "MSS",
+        screen: "SSS",
     },
 }

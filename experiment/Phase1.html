@@ -165,7 +165,7 @@
                     name: "ethnicity",
                 },
                 {
-                    prompt: "English level (native, fluent, intermediate, beginner)",
+                    prompt: "English level",
                     placeholder: "native, fluent, intermediate, beginner",
                     name: "english",
                 },
@@ -189,9 +189,11 @@
         /* ============================================================== */
 
         // Questionnaires -----------------------------------------------------
-        timeline.push(ipip6_questionaire)
-        timeline.push(pid5_questionaire)
-        timeline.push(mss_questionaire)
+        var Qs = [ipip6_questionaire, pid5_questionaire, sss_questionaire]
+        Qs = jsPsych.randomization.shuffle(Qs)
+        timeline.push(Qs[0])
+        timeline.push(Qs[1])
+        timeline.push(Qs[2])
 
         // RS -----------------------------------------------------------------
         // Instructions
