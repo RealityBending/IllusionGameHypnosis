@@ -190,10 +190,10 @@
 
         // Questionnaires -----------------------------------------------------
         var Qs = [ipip6_questionaire, pid5_questionaire, sss_questionaire]
-        Qs = jsPsych.randomization.shuffle(Qs)
-        timeline.push(Qs[0])
-        timeline.push(Qs[1])
-        timeline.push(Qs[2])
+        Qs = jsPsych.randomization.shuffle(Qs) // Randomize
+        for (var i = 0; i < Qs.length; i++) {
+            timeline.push(Qs[i]) // Push each element to timeline
+        }
 
         // RS -----------------------------------------------------------------
         // Instructions
