@@ -6,8 +6,13 @@
 
 
 
+### Try the Experiment
 
-This repo will outline a paradigm for conducting a visual illusion experiment, using Pyllusion, in which we aim to use hypnosis as a form of implicit instruction to see past the given illusion. There will even be instructions on how to set everything up and collect ECG data, how neat is that?
+- [**Phase 1]
+- [**Phase 2 ]
 
-More info to be posted soon, including Makowski-approved pictures, but for now here is a cat
+### Additional Materials
 
+- Ethics Review Number: ER/AM2351/2 
+- [Preregistration](https://osf.io/xzyvw/)
+- [Repository version at the time of preregistration]()
