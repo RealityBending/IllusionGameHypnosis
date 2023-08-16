@@ -1,9 +1,10 @@
-# IllusionGameHypnosis
+# Illusion Sensitivity and Phenomenological Control
 
 <img align="right" height="500" src="https://i.imgur.com/tGcP1eh.png">
 
 *Now behave and construct the reality I want you to*
 
+This study is part of a [*Sussex Junior Research Assistant*](https://realitybending.github.io/jobs/assistant/) project led by [Auz Moore](https://github.com/AuzMoore).
 
 
 ### Try the Experiment
