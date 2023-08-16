@@ -9,11 +9,11 @@ This study is part of a [*Sussex Junior Research Assistant*](https://realitybend
 
 ### Try the Experiment
 
-- Phase 1: Questionnaires + Illusion Game (Baseline)
-- Phase 2: Induction + Illusion Game
+- [Phase 1: Questionnaires + Illusion Game (Baseline) ](https://realitybending.github.io/IllusionGameHypnosis/experiment/Phase1.html)
+- [Phase 2: Induction + Illusion Game](https://realitybending.github.io/IllusionGameHypnosis/experiment/Phase2.html)
 
 ### Additional Materials
 
 - Ethics Review Number: ER/AM2351/2 
 - [Preregistration](https://osf.io/r6x9c)
-- Repository version at the time of preregistration
+- [Repository version at the time of preregistration](https://github.com/RealityBending/IllusionGameHypnosis/releases/tag/0.1)
