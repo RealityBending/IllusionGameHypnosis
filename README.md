@@ -8,8 +8,8 @@
 
 ### Try the Experiment
 
-- [**Phase 1]
-- [**Phase 2 ]
+- Phase 1: Questionnaires + Illusion Game (Baseline)
+- Phase 2: Induction + Illusion Game
 
 ### Additional Materials
 
