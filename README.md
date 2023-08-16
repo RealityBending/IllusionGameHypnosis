@@ -16,4 +16,4 @@ This study is part of a [*Sussex Junior Research Assistant*](https://realitybend
 
 - Ethics Review Number: ER/AM2351/2 
 - [Preregistration](https://osf.io/xzyvw/)
-- [Repository version at the time of preregistration]()
+- Repository version at the time of preregistration
