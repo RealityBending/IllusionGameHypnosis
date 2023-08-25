@@ -1,3 +1,5 @@
+// TODO: fix merging of data with stimuli + Name screens as "IG_" + With Titlecase
+
 // Illusion Instructions
 var IG_instructions = {
     type: jsPsychHtmlButtonResponse,
