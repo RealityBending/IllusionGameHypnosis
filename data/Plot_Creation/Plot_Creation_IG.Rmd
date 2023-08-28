@@ -16,6 +16,11 @@ library(reshape2)
 
 ```{r data retrieve}
 data <- read.csv("../data_IllusionGame.csv", stringsAsFactors = FALSE)
+
+df %>%
+  filter(Illusion_Effect == Incongruent) %>%
+  group_by(participant_id, Condition, Illusion_Type) %>%
+  summarise(Error = mean(Error))
 ```
 
 ## 
