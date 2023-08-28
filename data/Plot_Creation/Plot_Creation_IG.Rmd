@@ -1,0 +1,27 @@
+---
+title: "Plot_Creation_Beh"
+author: "Austin"
+date: "28/08/2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+```
+
+## 
+
+```{r data retrieve}
+data <- read.csv("../data_IllusionGame.csv", stringsAsFactors = FALSE)
+```
+
+## 
+
+```{r pressure, echo=FALSE}
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
