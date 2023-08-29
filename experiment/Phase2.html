@@ -1,280 +1,277 @@
 <!-- Load jsPsych 7.3.1 (last updated: 19/10/1991)-->
 <!DOCTYPE html>
 <html>
-    <head>
-        <!--create title shown in tab; not the same as header on webpage-->
-        <title>IGH - Phase 1</title>
 
-        <script src="utils/jspsych/jspsych.js"></script>
+<head>
+    <!--create title shown in tab; not the same as header on webpage-->
+    <title>IGH - Phase 1</title>
 
-        <!--Load all necessary plugins stored in utils-->
-        <script src="utils/jspsych/plugin-html-keyboard-response.js"></script>
-        <script src="utils/jspsych/plugin-browser-check.js"></script>
-        <script src="utils/jspsych/plugin-html-button-response.js"></script>
-        <script src="utils/jspsych/plugin-fullscreen.js"></script>
-        <script src="utils/jspsych/plugin-survey-text.js"></script>
-        <script src="utils/jspsych/plugin-audio-button-response.js"></script>
-        <script src="utils/jspsych/plugin-audio-keyboard-response.js"></script>
-        <script src="utils/jspsych/plugin-canvas-button-response.js"></script>
-        <script src="utils/jspsych/plugin-preload.js"></script>
-        <script src="utils/jspsych/multiple-slider.js"></script>
-        <script src="utils/jspsych/extension-record-video.js"></script>
-        <script src="utils/jspsych/plugin-initialize-camera.js"></script>
-        <script src="utils/jspsych/plugin-survey-likert.js"></script>
-        <script src="utils/jspsych/plugin-image-keyboard-response.js"></script>
-        <script src="utils/jspsych/plugin-survey-multi-choice.js"></script>
+    <script src="utils/jspsych/jspsych.js"></script>
 
-        <!-- Load parameters here (always below the loading of the JsPsych) -->
-        <script src="RestingState.js"></script>
+    <!--Load all necessary plugins stored in utils-->
+    <script src="utils/jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="utils/jspsych/plugin-browser-check.js"></script>
+    <script src="utils/jspsych/plugin-html-button-response.js"></script>
+    <script src="utils/jspsych/plugin-fullscreen.js"></script>
+    <script src="utils/jspsych/plugin-survey-text.js"></script>
+    <script src="utils/jspsych/plugin-audio-button-response.js"></script>
+    <script src="utils/jspsych/plugin-audio-keyboard-response.js"></script>
+    <script src="utils/jspsych/plugin-canvas-button-response.js"></script>
+    <script src="utils/jspsych/plugin-preload.js"></script>
+    <script src="utils/jspsych/multiple-slider.js"></script>
+    <script src="utils/jspsych/extension-record-video.js"></script>
+    <script src="utils/jspsych/plugin-initialize-camera.js"></script>
+    <script src="utils/jspsych/plugin-survey-likert.js"></script>
+    <script src="utils/jspsych/plugin-image-keyboard-response.js"></script>
+    <script src="utils/jspsych/plugin-survey-multi-choice.js"></script>
 
-        <!-- Load stimuli data and IG stuff  -->
-        <script src="stimuli/stimuli_training.js"></script>
-        <script src="stimuli/stimuli_part1.js"></script>
-        <script src="stimuli/stimuli_part2.js"></script>
-        <script src="IllusionGame.js"></script>
-        <script src="IllusionGameAltered.js"></script>
+    <!-- Load parameters here (always below the loading of the JsPsych) -->
+    <script src="RestingState.js"></script>
 
-        <link
-            href="utils/jspsych/jspsych.css"
-            rel="stylesheet"
-            type="text/css"
-        />
-        <style>
-            /* set canvas to be full screen */
-            .jspsych-content {
-                max-width: 100%;
-            }
+    <!-- Load stimuli data and IG stuff  -->
+    <script src="stimuli/stimuli_training.js"></script>
+    <script src="stimuli/stimuli_part1.js"></script>
+    <script src="stimuli/stimuli_part2.js"></script>
+    <script src="IllusionGame.js"></script>
+    <script src="IllusionGameAltered.js"></script>
 
-            /*Hide scrollbar while keeping it functional */
-            body {
-                overflow-y: scroll;
-            }
+    <link href="utils/jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+    <style>
+        /* set canvas to be full screen */
+        .jspsych-content {
+            max-width: 100%;
+        }
 
-            Body::-webkit-scrollbar {
-                display: none;
-            }
-        </style>
-    </head>
+        /*Hide scrollbar while keeping it functional */
+        body {
+            overflow-y: scroll;
+        }
 
-    <body></body>
+        Body::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
 
-    <script>
-        /* ----------------- Initialize experiment ----------------- */
-        var timeline = []
+<body></body>
 
-        var jsPsych = initJsPsych({
-            // override_safe_mode: true,
-            on_finish: function () {
-                // jsPsych.data.displayData("json")
-                jsPsych.data
-                    .get()
-                    .localSave(
-                        "json",
-                        `${
-                            jsPsych.data.get().values()[0]["participant_id"]
-                        }.json`
-                    )
-            },
-        })
+<script>
+    /* ----------------- Initialize experiment ----------------- */
+    var timeline = []
 
-        // Enter fullscreen mode
-        timeline.push({
-            type: jsPsychFullscreen,
-            fullscreen_mode: true,
-            delay_after: 0,
-        })
+    var jsPsych = initJsPsych({
+        // override_safe_mode: true,
+        on_finish: function () {
+            // jsPsych.data.displayData("json")
+            jsPsych.data
+                .get()
+                .localSave(
+                    "json",
+                    `${jsPsych.data.get().values()[0]["participant_id"]
+                    }.json`
+                )
+        },
+    })
 
-        // Retrieve and save browser info
-        var browser_check = {
-            type: jsPsychBrowserCheck,
-            data: {
-                screen: "browser_info",
-            },
-            on_finish: function () {
-                data = jsPsych.data
-                    .get()
-                    .filter({ screen: "browser_info" })
-                    .values()[0]
-                jsPsych.data.addProperties({
-                    ["screen_height"]: data["height"],
-                    ["screen_width"]: data["width"],
-                })
-                for (var key in data) {
-                    if (
-                        [
-                            "vsync_rate",
-                            "os",
-                            "mobile",
-                            "browser",
-                            "browser_version",
-                        ].includes(key)
-                    ) {
-                        jsPsych.data.addProperties({
-                            [key]: data[key],
-                        })
-                    }
+    // Enter fullscreen mode
+    timeline.push({
+        type: jsPsychFullscreen,
+        fullscreen_mode: true,
+        delay_after: 0,
+    })
+
+    // Retrieve and save browser info
+    var browser_check = {
+        type: jsPsychBrowserCheck,
+        data: {
+            screen: "browser_info",
+        },
+        on_finish: function () {
+            data = jsPsych.data
+                .get()
+                .filter({ screen: "browser_info" })
+                .values()[0]
+            jsPsych.data.addProperties({
+                ["screen_height"]: data["height"],
+                ["screen_width"]: data["width"],
+            })
+            for (var key in data) {
+                if (
+                    [
+                        "vsync_rate",
+                        "os",
+                        "mobile",
+                        "browser",
+                        "browser_version",
+                    ].includes(key)
+                ) {
+                    jsPsych.data.addProperties({
+                        [key]: data[key],
+                    })
                 }
-                jsPsych.data.addProperties()
+            }
+            jsPsych.data.addProperties()
+        },
+    }
+    timeline.push(browser_check)
+
+    /* ----------------- Session Info ----------------- */
+
+    // Participant information
+    var participant_info = {
+        type: jsPsychSurveyText,
+        questions: [
+            {
+                prompt: "Enter the participant's ID:",
+                placeholder: "S00",
+                name: "Participant_ID",
             },
-        }
-        timeline.push(browser_check)
+        ],
+        data: {
+            screen: "participant_info",
+            version: version,
+            date: new Date().toLocaleDateString("fr-FR"),
+            time: new Date().toLocaleTimeString("fr-FR"),
+        },
+        on_finish: function () {
+            jsPsych.data.addProperties({
+                participant_id: jsPsych.data.get().last().values()[0][
+                    "response"
+                ]["Participant_ID"],
+            })
+        },
+    }
+    timeline.push(participant_info)
 
-        /* ----------------- Session Info ----------------- */
+    // Induction =================================================================
+    // Randomly assign condition
+    var condition = jsPsych.randomization.sampleWithReplacement(
+        ["Hypnosis", "Hypnosis"],
+        1
+    )
 
-        // Participant information
-        var participant_info = {
-            type: jsPsychSurveyText,
-            questions: [
-                {
-                    prompt: "Enter the participant's ID:",
-                    placeholder: "S00",
-                    name: "Participant_ID",
-                },
+    // If condition is Mindfulness, overwrite task instructions
+    if (condition == "Mindfulness") {
+        var induction_audio = ["Materials/Mindfulness.mp3"]
+        mullerlyer_instructions = mullerlyer_mindfulness
+        ebbinghaus_instructions = ebbinghaus_mindfulness
+        mullerlyer_instructions = mullerlyer_mindfulness
+    } else {
+        var induction_audio = ["Materials/Hypnosis.mp3"]
+        mullerlyer_instructions = mullerlyer_hypnosis
+        ebbinghaus_instructions = ebbinghaus_hypnosis
+        mullerlyer_instructions = mullerlyer_hypnosis
+    }
+
+    timeline.push({
+        type: jsPsychPreload,
+        auto_preload: true,
+        audio: induction_audio,
+        images: stimuli_part1
+            .map((a) => a.stimulus)
+            .concat(stimuli_part2.map((a) => a.stimulus)),
+    })
+
+    // Play Induction --------------------------------------------------------------
+    // Instructions
+    timeline.push({
+        type: jsPsychHtmlButtonResponse,
+        stimulus:
+            "<p><b>Instructions</b></p>" +
+            // Don't give exact time so that participants don't count
+            "<p>Please listen to the following audio instructions.</p>" +
+            "<p>Simply <b>relax</b> and remain seated quietly with your eyes closed. Please try <b>not to fall asleep</b>.</p> " +
+            // "<p>Once the resting period is over, you will hear a beep. You can then open your eyes and proceed.</p>" +
+            "<p>Once you are ready, press start.</p>",
+        choices: ["Start"],
+    })
+
+    // Induction
+    timeline.push({
+        type: jsPsychAudioKeyboardResponse,
+        on_start: function () {
+            document.body.style.backgroundColor = "#808080"
+            document.body.style.cursor = "none"
+            create_marker(marker_position)
+        },
+        stimulus: induction_audio,
+        choices: "s",
+        trial_ends_after_audio: true,
+        data: {
+            condition: condition,
+            screen: "induction",
+            time_start: function () {
+                return performance.now()
+            },
+        },
+        on_finish: function (data) {
+            document.body.style.backgroundColor = "#FFFFFF"
+            document.body.style.cursor = "auto"
+            document.querySelector("#marker").remove()
+            data.duration =
+                (performance.now() - data.time_start) / 1000 / 60
+        },
+    })
+
+    // Task Blocks -----------------------------------------------------------------
+
+    for (var task of jsPsych.randomization.shuffleNoRepeats([
+        IG_create_block(stimuli_part1, (display_block = false)),
+        // IG_create_block(stimuli_part12, (display_block = false)),
+    ])) {
+        timeline.push(task)
+    }
+
+    // Questions -----------------------------------------------------------------
+    // Debriefing
+    timeline.push({
+        type: jsPsychHtmlButtonResponse,
+        stimulus:
+            "<p><b>Thank you.</b></p>" +
+            "<p>You can now take some time to return to a normal waking state.</p>" +
+            "<p>A few questions to reflect back on your experience.</p>",
+        choices: ["Continue"],
+    })
+
+    timeline.push({
+        type: jsPsychMultipleSlider,
+        // This function is loaded in RestingState.js
+        questions: format_questions_analog(
+            [
+                "Did you follow the audio instructions?",
+                "Do you feel like you were in a different mental state at the end of the audio instructions?",
+                "Do you feel like you could remain in this state when the illusion game began?",
+                "Do you feel like you were (still) in a different mental state throughout most of the illusion game?",
+                "In general, do you feel like your performance (as compared to the first time) at the illusion game was impacted by the instructions?",
             ],
-            data: {
-                screen: "participant_info",
-                version: version,
-                date: new Date().toLocaleDateString("fr-FR"),
-                time: new Date().toLocaleTimeString("fr-FR"),
-            },
-            on_finish: function () {
-                jsPsych.data.addProperties({
-                    participant_id: jsPsych.data.get().last().values()[0][
-                        "response"
-                    ]["Participant_ID"],
-                })
-            },
-        }
-        timeline.push(participant_info)
+            [
+                "Induction_Q1",
+                "Induction_Q2",
+                "Induction_Q3",
+                "Induction_Q4",
+                "Induction_Q5",
+            ],
+            (ticks = ["Not at all", "Totally"])
+        ),
+        randomize_question_order: false,
+        // preamble:
+        //     "<p><b>About your personality...</b></p><p>Please answer the following questions based on how accurately each statement describes you in general.</p>",
+        require_movement: false,
+        slider_width: 600,
+        data: {
+            screen: "Induction_assessment",
+        },
+    })
 
-        // Induction =================================================================
-        // Randomly assign condition
-        var condition = jsPsych.randomization.sampleWithReplacement(
-            ["Mindfulness", "Hypnosis"],
-            1
-        )
+    // End =================================================================
+    // Exit fullscreen mode
+    timeline.push({
+        type: jsPsychFullscreen,
+        fullscreen_mode: false,
+    })
 
-        // If condition is Mindfulness, overwrite task instructions
-        if (condition == "Mindfulness") {
-            var induction_audio = ["Materials/Mindfulness.mp3"]
-            mullerlyer_instructions = mullerlyer_mindfulness
-            ebbinghaus_instructions = ebbinghaus_mindfulness
-            mullerlyer_instructions = mullerlyer_mindfulness
-        } else {
-            var induction_audio = ["Materials/Hypnosis.mp3"]
-            mullerlyer_instructions = mullerlyer_hypnosis
-            ebbinghaus_instructions = ebbinghaus_hypnosis
-            mullerlyer_instructions = mullerlyer_hypnosis
-        }
+    /* ----------------- Run the timeline ----------------- */
+    jsPsych.run(timeline)
+</script>
 
-        timeline.push({
-            type: jsPsychPreload,
-            auto_preload: true,
-            audio: induction_audio,
-            images: stimuli_part1
-                .map((a) => a.stimulus)
-                .concat(stimuli_part2.map((a) => a.stimulus)),
-        })
-
-        // Play Induction --------------------------------------------------------------
-        // Instructions
-        timeline.push({
-            type: jsPsychHtmlButtonResponse,
-            stimulus:
-                "<p><b>Instructions</b></p>" +
-                // Don't give exact time so that participants don't count
-                "<p>Please listen to the following audio instructions.</p>" +
-                 "<p>Simply <b>relax</b> and remain seated quietly with your eyes closed. Please try <b>not to fall asleep</b>.</p> " +
-                // "<p>Once the resting period is over, you will hear a beep. You can then open your eyes and proceed.</p>" +
-                "<p>Once you are ready, press start.</p>",
-            choices: ["Start"],
-        })
-
-        // Induction
-        timeline.push({
-            type: jsPsychAudioKeyboardResponse,
-            on_start: function () {
-                document.body.style.backgroundColor = "#808080"
-                document.body.style.cursor = "none"
-                create_marker(marker_position)
-            },
-            stimulus: induction_audio,
-            choices: "s",
-            trial_ends_after_audio: true,
-            data: {
-                condition: condition,
-                screen: "induction",
-                time_start: function () {
-                    return performance.now()
-                },
-            },
-            on_finish: function (data) {
-                document.body.style.backgroundColor = "#FFFFFF"
-                document.body.style.cursor = "auto"
-                document.querySelector("#marker").remove()
-                data.duration =
-                    (performance.now() - data.time_start) / 1000 / 60
-            },
-        })
-
-        // Task Blocks -----------------------------------------------------------------
-
-        for (var task of jsPsych.randomization.shuffleNoRepeats([
-            IG_create_block(stimuli_part1, (display_block = false)),
-            // IG_create_block(stimuli_part12, (display_block = false)),
-        ])) {
-            timeline.push(task)
-        }
-
-        // Questions -----------------------------------------------------------------
-        // Debriefing
-        timeline.push({
-            type: jsPsychHtmlButtonResponse,
-            stimulus:
-                "<p><b>Thank you.</b></p>" +
-                "<p>You can now take some time to return to a normal waking state.</p>" +
-                "<p>A few questions to reflect back on your experience.</p>",
-            choices: ["Continue"],
-        })
-
-        timeline.push({
-            type: jsPsychMultipleSlider,
-            // This function is loaded in RestingState.js
-            questions: format_questions_analog(
-                [
-                    "Did you follow the audio instructions?",
-                    "Do you feel like you were in a different mental state at the end of the audio instructions?",
-                    "Do you feel like you could remain in this state when the illusion game began?",
-                    "Do you feel like you were (still) in a different mental state throughout most of the illusion game?",
-                    "In general, do you feel like your performance (as compared to the first time) at the illusion game was impacted by the instructions?",
-                ],
-                [
-                    "Induction_Q1",
-                    "Induction_Q2",
-                    "Induction_Q3",
-                    "Induction_Q4",
-                    "Induction_Q5",
-                ],
-                (ticks = ["Not at all", "Totally"])
-            ),
-            randomize_question_order: false,
-            // preamble:
-            //     "<p><b>About your personality...</b></p><p>Please answer the following questions based on how accurately each statement describes you in general.</p>",
-            require_movement: false,
-            slider_width: 600,
-            data: {
-                screen: "Induction_assessment",
-            },
-        })
-
-        // End =================================================================
-        // Exit fullscreen mode
-        timeline.push({
-            type: jsPsychFullscreen,
-            fullscreen_mode: false,
-        })
-
-        /* ----------------- Run the timeline ----------------- */
-        jsPsych.run(timeline)
-    </script>
 </html>

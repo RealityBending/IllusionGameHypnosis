@@ -1,11 +1,10 @@
 ---
-title: "Descriptive Statistics"
-format: html
-execute:
-  cache: true
-editor_options:
-  chunk_output_type: console
+title: "2_Descriptive_Stats"
+author: "Austin"
+date: "29/08/2023"
+output: html_document
 ---
+
 
 ## Descriptive Statistics
 
@@ -31,11 +30,11 @@ dfsub |>
   select(participant_id, starts_with("Induction")) |> 
   pivot_longer(-participant_id) |> 
   mutate(label = case_when(
-    name == "Induction_Q1" ~ "Did you follow the audio instructions?",
-    name == "Induction_Q2" ~ "Do you feel like you were in a different    mental state at the end of the audio instructions?",
-    name == "Induction_Q3" ~ "Do you feel like you could remain in this state when the illusion game began?",
-    name == "Induction_Q4" ~ "Do you feel like you were (still) in a different mental state throughout most of the illusion game?",
-    TRUE ~ "In general, do you feel like your performance (as compared to the first time) at the illusion game was impacted by the instructions?"
+    name == "Induction_Q1" ~ "blabla1",
+    name == "Induction_Q2" ~ "blabla2",
+    name == "Induction_Q3" ~ "blabla3",
+    name == "Induction_Q4" ~ "blabla4",
+    TRUE ~ "blabla5"
   )) |> 
   ggplot(aes(x = value, y = label, fill = participant_id)) +
   geom_bar(stat = "identity") +
