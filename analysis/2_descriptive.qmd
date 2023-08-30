@@ -28,18 +28,22 @@ df <- read.csv("../data/data_IllusionGame.csv")
 
 ```{r}
 dfsub |> 
-  select(participant_id, starts_with("Induction")) |> 
-  pivot_longer(-participant_id) |> 
+  select(participant_id, Condition, starts_with("Induction")) |> 
+  pivot_longer(-all_of(c("participant_id", "Condition"))) |> 
   mutate(label = case_when(
     name == "Induction_Q1" ~ "Did you follow the audio instructions?",
-    name == "Induction_Q2" ~ "Do you feel like you were in a different    mental state at the end of the audio instructions?",
+    name == "Induction_Q2" ~ "Do you feel like you were in a different mental state at the end of the audio instructions?",
     name == "Induction_Q3" ~ "Do you feel like you could remain in this state when the illusion game began?",
     name == "Induction_Q4" ~ "Do you feel like you were (still) in a different mental state throughout most of the illusion game?",
     TRUE ~ "In general, do you feel like your performance (as compared to the first time) at the illusion game was impacted by the instructions?"
   )) |> 
-  ggplot(aes(x = value, y = label, fill = participant_id)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  scale_x_continuous(labels = scales::percent, limits = c(0, 1))
+  ggplot(aes(x = value, y = label, fill = Condition)) +
+  geom_bar(aes(group=participant_id), stat = "identity", position = "dodge") +
+  scale_x_continuous(breaks = c(0, 0.5, 1), 
+                     labels = c("0% (Not at all)", "50%", "100% (Totally)"), 
+                     limits = c(0, 1)) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank())
 ```
 
 ### Objective
@@ -48,10 +52,18 @@ dfsub |>
 errors <- df |> 
   filter(Illusion_Effect == "Incongruent") |> 
   group_by(participant_id, Condition, Illusion_Type) |> 
-  summarise(Error = mean(Error))
+  summarise(Error = mean(Error), .groups = 'keep') |> 
+  # Below adds a column that contains the assigned manipulation condition
+  full_join(
+    df |> 
+      filter(Condition != "Baseline") |> 
+      group_by(participant_id) |> 
+      slice(1) |> 
+      select(participant_id, Color = Condition), 
+    by="participant_id")
 
 errors |> 
-  ggplot(aes(x = Condition, y = Error, color=participant_id)) +
+  ggplot(aes(x = Condition, y = Error, color = Color)) +
   geom_line(aes(group = participant_id)) +
   geom_point() +
   facet_grid(~Illusion_Type)
