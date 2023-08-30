@@ -14,7 +14,8 @@ editor_options:
 #| output: false
 library(tidyverse)
 library(easystats)
-
+library(ggplot2)
+library(scales)
 
 # setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 dfsub <- read.csv("../data/data_Participants.csv")
@@ -42,13 +43,25 @@ dfsub |>
   scale_x_continuous(breaks = c(0, 0.5, 1), 
                      labels = c("0% (Not at all)", "50%", "100% (Totally)"), 
                      limits = c(0, 1)) +
+  scale_y_discrete(labels = label_wrap(50))+
   theme(axis.title.x = element_blank(),
-        axis.title.y = element_blank())
+        axis.title.y = element_blank(),
+    axis.text.y = element_text(hjust = 1),  # Adjust horizontal alignment of y-axis labels
+    axis.ticks.y = element_blank(),  # Hide y-axis ticks
+    legend.position = "bottom"  # Move the legend to the bottom
+  ) 
 ```
 
 ### Objective
 
 ```{r}
+df <- df %>%
+  mutate(Condition = case_when(
+    Condition == "Materials/Mindfulness.mp3" ~ "Mindfulness",
+    Condition == "Materials/Hypnosis.mp3" ~ "Hypnosis",
+    TRUE ~ Condition
+  ))
+
 errors <- df |> 
   filter(Illusion_Effect == "Incongruent") |> 
   group_by(participant_id, Condition, Illusion_Type) |> 
@@ -62,9 +75,17 @@ errors <- df |>
       select(participant_id, Color = Condition), 
     by="participant_id")
 
+
+
+condition_labels <- c("Baseline", "Hypnosis", "Mindfulness")
+
 errors |> 
+  mutate(Error = Error * 100) %>%  # Convert error values to percentages
   ggplot(aes(x = Condition, y = Error, color = Color)) +
   geom_line(aes(group = participant_id)) +
   geom_point() +
+  scale_x_discrete(labels = condition_labels) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1), limits = c(0, 100)) + 
+  labs(color = "Manipulation Condition")+
   facet_grid(~Illusion_Type)
 ```
