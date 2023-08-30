@@ -19,8 +19,8 @@ mne.set_log_level(verbose="WARNING")
 # Variables ==================================================================================
 # Change the path to your local data folder.
 # The data can be downloaded from OpenNeuro (TODO).
-# path = "C:/Users/domma/Box/Data/IllusionGameHypnosis/Reality Bending Lab - IllusionGameHypnosis/"
-path = "C:/Users/dmm56/Box/Data/IllusionGameHypnosis/Reality Bending Lab - IllusionGameHypnosis/"
+path = "C:/Users/domma/Box/Data/IllusionGameHypnosis/Reality Bending Lab - IllusionGameHypnosis/"
+# path = "C:/Users/dmm56/Box/Data/IllusionGameHypnosis/Reality Bending Lab - IllusionGameHypnosis/"
 
 # Get participant list
 meta = pd.read_csv(path + "participants.tsv", sep="\t")
