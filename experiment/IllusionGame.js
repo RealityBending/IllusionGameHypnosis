@@ -1,4 +1,6 @@
 // TODO: fix merging of data with stimuli + Name screens as "IG_" + With Titlecase
+// TODO: do not display score feedback for phase 2
+// TODO: Mark trial number or block as different for practice trials (e.g., block = 0)
 
 // Illusion Instructions
 var IG_instructions = {
