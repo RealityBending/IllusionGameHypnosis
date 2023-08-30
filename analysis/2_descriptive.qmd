@@ -38,7 +38,7 @@ dfsub |>
     TRUE ~ "In general, do you feel like your performance (as compared to the first time) at the illusion game was impacted by the instructions?"
   )) |> 
   ggplot(aes(x = value, y = label, fill = participant_id)) +
-  geom_bar(stat = "identity") +
+  geom_bar(stat = "identity", position = "dodge") +
   scale_x_continuous(labels = scales::percent, limits = c(0, 1))
 ```
 
@@ -51,7 +51,7 @@ errors <- df |>
   summarise(Error = mean(Error))
 
 errors |> 
-  ggplot(aes(x = Condition, y = Error)) +
+  ggplot(aes(x = Condition, y = Error, color=participant_id)) +
   geom_line(aes(group = participant_id)) +
   geom_point() +
   facet_grid(~Illusion_Type)

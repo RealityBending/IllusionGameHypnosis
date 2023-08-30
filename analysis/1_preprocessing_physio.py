@@ -26,7 +26,8 @@ path = "C:/Users/domma/Box/Data/IllusionGameHypnosis/Reality Bending Lab - Illus
 meta = pd.read_csv(path + "participants.tsv", sep="\t")
 
 # Initialize variables
-df = pd.DataFrame()
+dfsubs = pd.DataFrame()
+df_igs = pd.DataFrame()
 
 # sub = "sub-001"
 # Loop through participants ==================================================================
@@ -50,10 +51,13 @@ for sub in meta["participant_id"].values:
     file = [path_beh + f for f in file if ".tsv" in f]
     df_ig = pd.concat([pd.read_csv(i, sep="\t") for i in file], axis=0)
 
+    # Add to other subjects
+    dfsubs = pd.concat([dfsubs, dfsub], axis=0)
+    df_igs = pd.concat([df_igs, df_ig], axis=0)
 
 # Clean up and Save data
-dfsub = pd.merge(meta, dfsub)
-dfsub.to_csv("../data/data_Participants.csv", index=False)
-df_ig.to_csv("../data/data_IllusionGame.csv", index=False)
+dfsubs = pd.merge(meta, dfsubs)
+dfsubs.to_csv("../data/data_Participants.csv", index=False)
+df_igs.to_csv("../data/data_IllusionGame.csv", index=False)
 
 print("Done!")
