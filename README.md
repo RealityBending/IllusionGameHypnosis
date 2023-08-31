@@ -17,3 +17,4 @@ This study is part of a [*Sussex Junior Research Assistant*](https://realitybend
 - Ethics Review Number: ER/AM2351/2 
 - [Preregistration](https://osf.io/r6x9c)
 - [Repository version at the time of preregistration](https://github.com/RealityBending/IllusionGameHypnosis/releases/tag/0.1)
+- [Sussex Psychophysiological Research Protocol](https://github.com/RealityBending/SussexPhysioProtocol) 
