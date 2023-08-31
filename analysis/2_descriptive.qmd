@@ -39,17 +39,21 @@ dfsub |>
     TRUE ~ "In general, do you feel like your performance (as compared to the first time) at the illusion game was impacted by the instructions?"
   )) |> 
   ggplot(aes(x = value, y = label, fill = Condition)) +
-  geom_bar(aes(group=participant_id), stat = "identity", position = "dodge") +
+  geom_bar(aes(group=participant_id), stat = "identity", position = "dodge", width = 0.7
+           ) +
   scale_x_continuous(breaks = c(0, 0.5, 1), 
                      labels = c("0% (Not at all)", "50%", "100% (Totally)"), 
                      limits = c(0, 1)) +
   scale_y_discrete(labels = label_wrap(50))+
-  theme(axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
+  theme_classic() +
+  theme(
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
     axis.text.y = element_text(hjust = 1),  # Adjust horizontal alignment of y-axis labels
     axis.ticks.y = element_blank(),  # Hide y-axis ticks
     legend.position = "bottom"  # Move the legend to the bottom
-  ) 
+  ) +
+    scale_fill_manual(values = c("Hypnosis" = "black", "Mindfulness" = "red"))
 ```
 
 ### Objective
@@ -62,30 +66,32 @@ df <- df %>%
     TRUE ~ Condition
   ))
 
-errors <- df |> 
-  filter(Illusion_Effect == "Incongruent") |> 
-  group_by(participant_id, Condition, Illusion_Type) |> 
-  summarise(Error = mean(Error), .groups = 'keep') |> 
-  # Below adds a column that contains the assigned manipulation condition
+errors <- df %>%
+  filter(Illusion_Effect == "Incongruent") %>%
+  group_by(participant_id, Condition, Illusion_Type) %>%
+  summarise(Error = mean(Error), .groups = 'keep') %>%
   full_join(
-    df |> 
-      filter(Condition != "Baseline") |> 
-      group_by(participant_id) |> 
-      slice(1) |> 
-      select(participant_id, Color = Condition), 
-    by="participant_id")
-
-
+    df %>%
+      filter(Condition != "Baseline") %>%
+      group_by(participant_id) %>%
+      slice(1) %>%
+      select(participant_id, Color = Condition),
+    by = "participant_id"
+  )
 
 condition_labels <- c("Baseline", "Hypnosis", "Mindfulness")
 
-errors |> 
-  mutate(Error = Error * 100) %>%  # Convert error values to percentages
+errors %>%
+  mutate(Error = Error * 100) %>%
   ggplot(aes(x = Condition, y = Error, color = Color)) +
-  geom_line(aes(group = participant_id)) +
-  geom_point() +
+  geom_line(aes(group = participant_id), size = 1) +
+  geom_point(size = 3) +
   scale_x_discrete(labels = condition_labels) +
-  scale_y_continuous(labels = scales::percent_format(scale = 1), limits = c(0, 100)) + 
-  labs(color = "Manipulation Condition")+
-  facet_grid(~Illusion_Type)
+  scale_y_continuous(labels = scales::percent_format(scale = 1), limits = c(0, 100)) +
+  labs(color = "Manipulation Condition") +
+  facet_grid(~Illusion_Type) +
+  theme_modern() +
+  scale_color_manual(values = c("Hypnosis" = "black", "Mindfulness" = "red")) +
+  scale_shape_manual(values = c("Hypnosis" = 16, "Mindfulness" = 17))
+
 ```
