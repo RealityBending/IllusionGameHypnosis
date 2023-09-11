@@ -59,7 +59,14 @@ def save_mosaic(
 
 
 def generate_images(
-    data, strengths, differences, function, name="Delboeuf", target_only=False, **kwargs
+    data,
+    strengths,
+    differences,
+    function,
+    name="Delboeuf",
+    block="Practice",
+    target_only=False,
+    **kwargs,
 ):
     for strength in strengths:
         for difference in differences:
@@ -99,15 +106,15 @@ def generate_images(
             # Save parameters
             data.append(
                 {
-                    "Illusion_Type": name,
-                    "Illusion_Strength": f"{float(strength):<012}",
-                    "Difference": f"{float(difference):<012}",
                     "stimulus": "stimuli/" + path,
                     # "fix_cross": random.choice(fix_cross),
                     "data": {
-                        "screen": "Trial",
-                        "block": name,
+                        "screen": "IG_Trial",
+                        "block": block,
                         "correct_response": correct,
+                        "Illusion_Type": name,
+                        "Illusion_Strength": f"{float(strength):<012}",
+                        "Illusion_Difference": f"{float(difference):<012}",
                     },
                 }
             )
@@ -207,6 +214,7 @@ data_training = generate_images(
     differences=[-0.9, 0.9],
     function=ill.VerticalHorizontal,
     name="VerticalHorizontal",
+    block="Practice",
 )
 
 # Illusion task
@@ -225,6 +233,7 @@ data_block1 = generate_images(
     differences=diffs1,
     function=ill.VerticalHorizontal,
     name="VerticalHorizontal",
+    block="A",
 )
 
 data_block2 = generate_images(
@@ -233,6 +242,7 @@ data_block2 = generate_images(
     differences=diffs2,
     function=ill.VerticalHorizontal,
     name="VerticalHorizontal",
+    block="B",
 )
 
 
@@ -251,6 +261,7 @@ data_training = generate_images(
     differences=[-0.7, 0.7],
     function=ill.MullerLyer,
     name="MullerLyer",
+    block="Practice",
 )
 
 # Illusion task
@@ -268,6 +279,7 @@ data_block1 = generate_images(
     differences=diffs1,
     function=ill.MullerLyer,
     name="MullerLyer",
+    block="A",
 )
 
 data_block2 = generate_images(
@@ -276,6 +288,7 @@ data_block2 = generate_images(
     differences=diffs2,
     function=ill.MullerLyer,
     name="MullerLyer",
+    block="B",
 )
 
 
@@ -295,6 +308,7 @@ data_training = generate_images(
     differences=[-1.4, 1.4],
     function=ill.Ebbinghaus,
     name="Ebbinghaus",
+    block="Practice",
 )
 
 # Illusion task
@@ -313,6 +327,7 @@ data_block1 = generate_images(
     differences=diffs1,
     function=ill.Ebbinghaus,
     name="Ebbinghaus",
+    block="A",
 )
 
 data_block2 = generate_images(
@@ -321,6 +336,7 @@ data_block2 = generate_images(
     differences=diffs2,
     function=ill.Ebbinghaus,
     name="Ebbinghaus",
+    block="B",
 )
 
 # -------------------------- Save data --------------------------

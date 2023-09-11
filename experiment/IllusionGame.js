@@ -1,6 +1,5 @@
-// TODO: fix merging of data with stimuli + Name screens as "IG_" + With Titlecase
+// TODO: fix merging of data with stimuli // Requires regeneration of stimuli
 // TODO: do not display score feedback for phase 2
-// TODO: Mark trial number or block as different for practice trials (e.g., block = 0)
 
 // Illusion Instructions
 var IG_instructions = {
@@ -82,9 +81,9 @@ function get_results(illusion_mean, illusion_sd, illusion_type) {
     if (typeof illusion_type != "undefined") {
         var trials = jsPsych.data
             .get()
-            .filter({ screen: "Trial", type: illusion_type }) // results by block
+            .filter({ screen: "IG_Trial", type: illusion_type }) // results by block
     } else {
-        var trials = jsPsych.data.get().filter({ screen: "Trial" }) // overall results
+        var trials = jsPsych.data.get().filter({ screen: "IG_Trial" }) // overall results
     }
     var correct_trials = trials.filter({ correct: true })
     var proportion_correct = correct_trials.count() / trials.count()
@@ -166,8 +165,7 @@ function jittered_fixation_cross() {
                 '%">+</p>'
             )
         },
-        choices:
-            "NO_KEYS" /* no responses will be accepted as a valid response */,
+        choices: "NO_KEYS", // No response is accepted
         // trial_duration: 0, // (for testing)
         trial_duration: function () {
             return randomInteger(500, 1000)
@@ -175,7 +173,7 @@ function jittered_fixation_cross() {
         save_trial_parameters: {
             trial_duration: true,
         },
-        data: { screen: "fixation" },
+        data: { screen: "IG_FixationCross" },
     }
     return fixation
 }
