@@ -168,7 +168,7 @@ function jittered_fixation_cross() {
         choices: "NO_KEYS", // No response is accepted
         // trial_duration: 0, // (for testing)
         trial_duration: function () {
-            return randomInteger(500, 1000)
+            return randomInteger(600, 1200)
         },
         save_trial_parameters: {
             trial_duration: true,

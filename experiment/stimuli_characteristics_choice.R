@@ -91,3 +91,30 @@ p3
 
 
 p1 / p2 / p3
+
+
+
+# ISI ---------------------------------------------------------------------
+
+effect_isi <- function(model, name="Ebbinghaus1") {
+  model |>
+    get_datagrid(c("ISI", "Illusion_Difference"), length=c(10, 3)) |>
+    estimate_relation() |>
+    mutate(Model = name,
+           group = paste0(name, Illusion_Difference))
+}
+
+dat <- rbind(
+  effect_isi(gam_ebbinghaus_rt, name="Ebbinghaus1"),
+  effect_isi(gam_mullerlyer_rt, name="MullerLyer1"),
+  effect_isi(gam_verticalhorizontal_rt, name="VerticalHorizontal1")
+)
+
+dat |>
+  ggplot(aes(x = ISI, y = Predicted)) +
+  geom_vline(xintercept=850, linetype="dashed") +
+  geom_line(aes(group = group, color=Illusion_Difference)) +
+  facet_wrap(~Model)
+
+
+
